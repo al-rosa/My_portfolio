@@ -4,8 +4,8 @@ import '../common/colors.dart';
 import '../common/contents.dart';
 import '../widget/tile.dart';
 
-class Other extends StatelessWidget {
-  const Other({
+class EngineeringDesign extends StatelessWidget {
+  const EngineeringDesign({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +18,7 @@ class Other extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            Contents.other.title,
+            Contents.engineeringDesign.title,
             style: const TextStyle(fontSize: 64, color: textColor),
           ),
           SizedBox(height: screen.height / 10),
@@ -31,31 +31,31 @@ class Other extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 12, right: 24),
                   child: Tile(
-                    title: 'other',
+                    title: 'work',
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 24),
                   child: Tile(
-                    title: 'other',
+                    title: 'work',
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 24),
                   child: Tile(
-                    title: 'other',
+                    title: 'work',
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 24),
                   child: Tile(
-                    title: 'other',
+                    title: 'work',
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 24),
                   child: Tile(
-                    title: 'other',
+                    title: 'work',
                   ),
                 ),
               ],

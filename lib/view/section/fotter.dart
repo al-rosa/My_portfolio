@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../common/color.dart';
+import '../common/colors.dart';
 
 class Fotter extends StatelessWidget {
   const Fotter({

@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class Top extends StatefulWidget {
@@ -43,6 +44,8 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final Size screen = MediaQuery.of(context).size;
 
+    int typeSpeed = 100;
+
     return SizedBox(
       height: screen.height,
       width: screen.width,
@@ -61,14 +64,24 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'r0sa',
-                  style: TextStyle(fontSize: 210, fontWeight: FontWeight.w100),
+                  style: TextStyle(
+                    fontSize: 210,
+                    fontWeight: FontWeight.w100,
+                  ),
                 ),
-                Text(
-                  'Predict,Understanding,agreement',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.w100),
+                AnimatedTextKit(
+                  totalRepeatCount: 1,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'Predict,Understanding,agreement',
+                      speed: Duration(milliseconds: typeSpeed),
+                      textStyle: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.w100),
+                    )
+                  ],
                 ),
               ],
             ),

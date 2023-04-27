@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:r0sa_profile/view/common/contents.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'common/color.dart';
+import 'common/colors.dart';
 import 'section/about_me.dart';
+import 'section/engineering_design.dart';
 import 'section/fotter.dart';
 import 'section/other.dart';
 import 'section/top.dart';
-import 'section/work.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class Body extends StatefulWidget {
   State<Body> createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
+class _BodyState extends State<Body> with TickerProviderStateMixin {
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -40,13 +41,22 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screen = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           ScrollablePositionedList.builder(
             itemCount: sections.length,
             itemBuilder: (context, index) {
-              return sections[index];
+              if (index == 0 || index == sections.length - 1) {
+                return sections[index];
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(
+                      left: screen.width / 4, top: screen.height / 8),
+                  child: sections[index],
+                );
+              }
             },
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
@@ -63,7 +73,7 @@ class _BodyState extends State<Body> {
   List<Widget> sections = [
     const Top(),
     const AboutMe(),
-    const Work(),
+    const EngineeringDesign(),
     const Other(),
     const Fotter(),
   ];
@@ -74,59 +84,75 @@ class _BodyState extends State<Body> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 42),
+          padding: const EdgeInsets.only(left: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                 onPressed: () {
-                  _scroll(0);
+                  _scroll(Contents.top.num);
                 },
-                child: const Text(
-                  'top',
-                  style: TextStyle(color: textColor, fontSize: 32),
+                child: Text(
+                  Contents.top.title,
+                  style: const TextStyle(
+                      color: textColor,
+                      fontSize: 27,
+                      fontWeight: FontWeight.w100),
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  _scroll(1);
+                  _scroll(Contents.aboutMe.num);
                 },
-                child: const Text(
-                  'About Me',
-                  style: TextStyle(color: textColor, fontSize: 32),
+                child: Text(
+                  Contents.aboutMe.title,
+                  style: const TextStyle(
+                      color: textColor,
+                      fontSize: 27,
+                      fontWeight: FontWeight.w100),
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  _scroll(2);
+                  _scroll(Contents.engineeringDesign.num);
                 },
-                child: const Text(
-                  'Work',
-                  style: TextStyle(color: textColor, fontSize: 32),
+                child: Text(
+                  Contents.engineeringDesign.title,
+                  style: const TextStyle(
+                      color: textColor,
+                      fontSize: 27,
+                      fontWeight: FontWeight.w100),
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  _scroll(3);
+                  _scroll(Contents.other.num);
                 },
-                child: const Text(
-                  'Other',
-                  style: TextStyle(color: textColor, fontSize: 32),
+                child: Text(
+                  Contents.other.title,
+                  style: const TextStyle(
+                      color: textColor,
+                      fontSize: 27,
+                      fontWeight: FontWeight.w100),
                 ),
               ),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 62, top: 62),
+          padding: const EdgeInsets.only(right: 12, top: 62),
           child: TextButton(
             onPressed: () {
-              _scroll(4);
+              _scroll(Contents.account.num);
             },
-            child: const Text(
-              'Account',
-              style: TextStyle(color: textColor, fontSize: 32),
+            child: Text(
+              Contents.account.title,
+              style: const TextStyle(
+                color: textColor,
+                fontSize: 27,
+                fontWeight: FontWeight.w100,
+              ),
             ),
           ),
         ),

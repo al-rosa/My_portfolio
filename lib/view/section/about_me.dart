@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:r0sa_profile/view/common/contents.dart';
 
-import '../common/color.dart';
+import '../common/colors.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({
@@ -13,22 +14,18 @@ class AboutMe extends StatelessWidget {
 
     return SizedBox(
       width: screen.width,
-      child: Padding(
-        padding:
-            EdgeInsets.only(left: screen.width / 5, top: screen.height / 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
-              'Avout Me',
-              style: TextStyle(fontSize: 76, color: textColor),
-            ),
-            Text(
-              'flutterでios,web制作をしている者です。',
-              style: TextStyle(fontSize: 32, color: textColor),
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            Contents.aboutMe.title,
+            style: const TextStyle(fontSize: 64, color: textColor),
+          ),
+          const Text(
+            'flutterでios,web制作をしている者です。\nWebデザインも行っています。',
+            style: TextStyle(fontSize: 32, color: textColor),
+          ),
+        ],
       ),
     );
   }
