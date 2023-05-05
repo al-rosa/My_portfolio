@@ -1,33 +1,33 @@
-enum Contents {
+enum Section {
   top,
   aboutMe,
   aboutProductions,
   contact,
 }
 
-extension ContentsExtension on Contents {
+extension ContentsExtension on Section {
   String get title {
     switch (this) {
-      case Contents.top:
+      case Section.top:
         return 'Top';
-      case Contents.aboutMe:
+      case Section.aboutMe:
         return 'About me';
-      case Contents.aboutProductions:
+      case Section.aboutProductions:
         return 'About Productions';
-      case Contents.contact:
+      case Section.contact:
         return 'Contact';
     }
   }
 
   int get num {
     switch (this) {
-      case Contents.top:
+      case Section.top:
         return 0;
-      case Contents.aboutMe:
+      case Section.aboutMe:
         return 1;
-      case Contents.aboutProductions:
+      case Section.aboutProductions:
         return 2;
-      case Contents.contact:
+      case Section.contact:
         return 3;
     }
   }

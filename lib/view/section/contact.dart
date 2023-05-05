@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/common/contents.dart';
-import 'package:r0sa_profile/view/common/text.dart';
+import 'package:r0sa_profile/model/emum/section.dart';
+
+import '../../constants.dart';
 
 class Contact extends StatelessWidget {
   const Contact({
@@ -22,12 +23,12 @@ class Contact extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                Contents.contact.title,
-                style: boldText,
+                Section.contact.title,
+                style: ITextStyle.boldText,
               ),
-              Text(
+              const Text(
                 "ここまでご覧いただいてありがとうございました。当サイトや私自身についてコメントがございましたら下記のフォームからご連絡ください。また、お仕事の依頼も待っております。",
-                style: regularText,
+                style: ITextStyle.regularText,
               ),
               Row(
                 children: [

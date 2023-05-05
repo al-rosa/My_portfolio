@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/common/contents.dart';
-import 'package:r0sa_profile/view/common/text.dart';
+import 'package:r0sa_profile/model/emum/section.dart';
 
-import '../common/colors.dart';
+import '../../constants.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({
@@ -25,8 +24,8 @@ class AboutMe extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                Contents.aboutMe.title,
-                style: boldText,
+                Section.aboutMe.title,
+                style: ITextStyle.boldText,
               ),
               const SizedBox(height: 24),
               Row(
@@ -40,38 +39,38 @@ class AboutMe extends StatelessWidget {
                   Column(
                     children: [
                       Row(
-                        children: [
+                        children: const [
                           Text(
                             "About Me",
-                            style: boldText,
+                            style: ITextStyle.boldText,
                           ),
                           Text(
                             "「like sunglasses」",
-                            style: midText,
+                            style: ITextStyle.midText,
                           )
                         ],
                       ),
                       Row(
-                        children: [
+                        children: const [
                           Text(
                             "About Me",
-                            style: boldText,
+                            style: ITextStyle.boldText,
                           ),
-                          Text(
+                           Text(
                             "「love avocado」",
-                            style: midText,
+                            style: ITextStyle.midText,
                           )
                         ],
                       ),
                       Row(
-                        children: [
+                        children: const [
                           Text(
                             "About Me",
-                            style: boldText,
+                            style: ITextStyle.boldText,
                           ),
                           Text(
                             "「adore cat」",
-                            style: midText,
+                            style: ITextStyle.midText,
                           )
                         ],
                       ),
@@ -80,20 +79,20 @@ class AboutMe extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 36),
-              Text(
+              const Text(
                 "大阪生まれ大阪育ちのエンジニア。大学時代に情報理工学を専攻。大学の授業をきっかけに、Flutterでアプリを開発。その他にも、「Webデザイン・制作」、「イベント予約システムの構築」、「LINE BOT制作」など、主にフロントサイドを中心に活動してきました。",
-                style: regularText,
+                style: ITextStyle.regularText,
               ),
               const Divider(
-                color: grey,
+                color: IColor.grey,
                 thickness: 1,
                 height: 50,
                 indent: 20,
                 endIndent: 20,
               ),
-              Text(
+              const Text(
                 "Engineer born and raised in Osaka. Majored in Information Science and Engineering at university. His university classes led him to develop apps with Flutter. In addition, he has worked mainly on the front side, including \"Web design and production,\" \"building event reservation systems,\" and \"LINE BOT production.\"",
-                style: regularText,
+                style: ITextStyle.regularText,
               ),
             ],
           ),

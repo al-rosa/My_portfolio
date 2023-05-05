@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/common/contents.dart';
+import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/view/section/about_productions.dart';
 import 'package:r0sa_profile/view/section/contact.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'common/colors.dart';
+import '../constants.dart';
 import 'section/about_me.dart';
 import 'section/top.dart';
 
@@ -82,14 +82,11 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             children: [
               TextButton(
                 onPressed: () {
-                  _scroll(Contents.top.num);
+                  _scroll(Section.top.num);
                 },
                 child: Text(
-                  Contents.top.title,
-                  style: const TextStyle(
-                      color: textColor,
-                      fontSize: 27,
-                      fontWeight: FontWeight.w100),
+                  Section.top.title,
+                  style: ITextStyle.midText,
                 ),
               ),
               TextButton(
@@ -100,10 +97,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                 },
                 child: const Text(
                   "About ...",
-                  style: TextStyle(
-                      color: textColor,
-                      fontSize: 27,
-                      fontWeight: FontWeight.w100),
+                  style: ITextStyle.midText,
                 ),
               ),
               test
@@ -114,26 +108,20 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                         children: [
                           TextButton(
                             onPressed: () {
-                              _scroll(Contents.aboutMe.num);
+                              _scroll(Section.aboutMe.num);
                             },
                             child: const Text(
                               "About me",
-                              style: TextStyle(
-                                  color: textColor,
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w100),
+                              style: ITextStyle.midText,
                             ),
                           ),
                           TextButton(
                             onPressed: () {
-                              _scroll(Contents.aboutProductions.num);
+                              _scroll(Section.aboutProductions.num);
                             },
                             child: const Text(
                               "About production",
-                              style: TextStyle(
-                                  color: textColor,
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.w100),
+                              style: ITextStyle.midText,
                             ),
                           ),
                         ],
@@ -142,14 +130,11 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   : Container(),
               TextButton(
                 onPressed: () {
-                  _scroll(Contents.contact.num);
+                  _scroll(Section.contact.num);
                 },
                 child: Text(
-                  Contents.contact.title,
-                  style: const TextStyle(
-                      color: textColor,
-                      fontSize: 27,
-                      fontWeight: FontWeight.w100),
+                  Section.contact.title,
+                  style: ITextStyle.midText,
                 ),
               ),
             ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/common/contents.dart';
-import 'package:r0sa_profile/view/common/text.dart';
+import 'package:r0sa_profile/model/emum/section.dart';
 
-import '../common/colors.dart';
+import '../../constants.dart';
 
 class AboutProductions extends StatelessWidget {
   const AboutProductions({
@@ -16,24 +15,33 @@ class AboutProductions extends StatelessWidget {
     return SizedBox(
       width: screen.width,
       height: screen.height,
-      child: Center(
-        child: SizedBox(
-          width: screen.width * 0.67063492,
-          height: screen.height * 0.80346232,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Contents.aboutProductions.title,
-                style: boldText,
-              ),
-              Row(
-                children: [ProductionCard(), ProductionCard()],
-              ),
-              Row(
-                children: [ProductionCard(), ProductionCard()],
-              )
-            ],
+      child: Container(
+        decoration: const BoxDecoration(
+          color: IColor.grey,
+          image: DecorationImage(
+            image: AssetImage('rectangle.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: SizedBox(
+            width: screen.width * 0.67063492,
+            height: screen.height * 0.80346232,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Section.aboutProductions.title,
+                  style: ITextStyle.boldText,
+                ),
+                Row(
+                  children: const [ProductionCard(), ProductionCard()],
+                ),
+                Row(
+                  children: const [ProductionCard(), ProductionCard()],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -56,7 +64,7 @@ class ProductionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("pairium(Nativde App)", style: midText),
+          const Text("pairium(Nativde App)", style: ITextStyle.midText,),
           const SizedBox(height: 12),
           InkWell(
             onTap: () {},
@@ -64,7 +72,8 @@ class ProductionCard extends StatelessWidget {
               width: screen.width * 0.30621693,
               height: screen.height * 0.25254582,
               decoration: BoxDecoration(
-                border: Border.all(color: grey),
+                color: IColor.white,
+                border: Border.all(color: IColor.grey),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -78,15 +87,15 @@ class ProductionCard extends StatelessWidget {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("使用技術", style: regularText),
+                      children: const [
+                        Text("使用技術", style: ITextStyle.regularText,),
                         Text(
                           "Flutter(dart)",
-                          style: detailText,
+                          style: ITextStyle.detailText,
                         ),
                         Text(
                           "Firebase",
-                          style: detailText,
+                          style: ITextStyle.detailText,
                         ),
                       ],
                     ),

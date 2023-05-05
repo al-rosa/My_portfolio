@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:r0sa_profile/constants.dart';
 
 class Top extends StatefulWidget {
   const Top({
@@ -65,22 +66,13 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'r0sa',
-                  style: TextStyle(
-                    fontSize: 210,
-                    fontWeight: FontWeight.w100,
-                  ),
-                ),
+                const Text('r0sa', style: ITextStyle.title),
                 AnimatedTextKit(
                   totalRepeatCount: 1,
                   animatedTexts: [
-                    TyperAnimatedText(
-                      'Predict,Understanding,Agreement',
-                      speed: Duration(milliseconds: typeSpeed),
-                      textStyle: const TextStyle(
-                          fontSize: 40, fontWeight: FontWeight.w100),
-                    )
+                    TyperAnimatedText('Predict,Understanding,Agreement',
+                        speed: Duration(milliseconds: typeSpeed),
+                        textStyle: ITextStyle.subTitle)
                   ],
                 ),
               ],
