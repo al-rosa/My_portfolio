@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/view/common/contents.dart';
+import 'package:r0sa_profile/view/section/about_productions.dart';
+import 'package:r0sa_profile/view/section/contact.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'common/colors.dart';
 import 'section/about_me.dart';
-import 'section/engineering_design.dart';
-import 'section/fotter.dart';
-import 'section/other.dart';
 import 'section/top.dart';
 
 class Body extends StatefulWidget {
@@ -39,24 +38,17 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     );
   }
 
+  bool test = false;
+
   @override
   Widget build(BuildContext context) {
-    final Size screen = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           ScrollablePositionedList.builder(
             itemCount: sections.length,
             itemBuilder: (context, index) {
-              if (index == 0 || index == sections.length - 1) {
-                return sections[index];
-              } else {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      left: screen.width / 4, top: screen.height / 8),
-                  child: sections[index],
-                );
-              }
+              return sections[index];
             },
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
@@ -73,9 +65,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   List<Widget> sections = [
     const Top(),
     const AboutMe(),
-    const EngineeringDesign(),
-    const Other(),
-    const Fotter(),
+    const AboutProductions(),
+    const Contact(),
   ];
 
   Widget menu() {
@@ -103,34 +94,58 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               ),
               TextButton(
                 onPressed: () {
-                  _scroll(Contents.aboutMe.num);
+                  setState(() {
+                    test = !test;
+                  });
                 },
-                child: Text(
-                  Contents.aboutMe.title,
-                  style: const TextStyle(
+                child: const Text(
+                  "About ...",
+                  style: TextStyle(
                       color: textColor,
                       fontSize: 27,
                       fontWeight: FontWeight.w100),
                 ),
               ),
+              test
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              _scroll(Contents.aboutMe.num);
+                            },
+                            child: const Text(
+                              "About me",
+                              style: TextStyle(
+                                  color: textColor,
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              _scroll(Contents.aboutProductions.num);
+                            },
+                            child: const Text(
+                              "About production",
+                              style: TextStyle(
+                                  color: textColor,
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
               TextButton(
                 onPressed: () {
-                  _scroll(Contents.engineeringDesign.num);
+                  _scroll(Contents.contact.num);
                 },
                 child: Text(
-                  Contents.engineeringDesign.title,
-                  style: const TextStyle(
-                      color: textColor,
-                      fontSize: 27,
-                      fontWeight: FontWeight.w100),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  _scroll(Contents.other.num);
-                },
-                child: Text(
-                  Contents.other.title,
+                  Contents.contact.title,
                   style: const TextStyle(
                       color: textColor,
                       fontSize: 27,
@@ -138,22 +153,6 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                 ),
               ),
             ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 12, top: 62),
-          child: TextButton(
-            onPressed: () {
-              _scroll(Contents.account.num);
-            },
-            child: Text(
-              Contents.account.title,
-              style: const TextStyle(
-                color: textColor,
-                fontSize: 27,
-                fontWeight: FontWeight.w100,
-              ),
-            ),
           ),
         ),
       ],

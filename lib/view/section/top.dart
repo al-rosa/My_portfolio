@@ -76,7 +76,7 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
                   totalRepeatCount: 1,
                   animatedTexts: [
                     TyperAnimatedText(
-                      'Predict,Understanding,agreement',
+                      'Predict,Understanding,Agreement',
                       speed: Duration(milliseconds: typeSpeed),
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w100),

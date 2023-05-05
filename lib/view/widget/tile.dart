@@ -35,7 +35,7 @@ class Tile extends StatelessWidget {
             Container(
               width: 340,
               height: 40,
-              color: lightGrey,
+              color: grey,
               child: Text(
                 title,
                 style:

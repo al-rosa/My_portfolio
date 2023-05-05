@@ -1,38 +1,34 @@
 enum Contents {
   top,
   aboutMe,
-  engineeringDesign,
-  other,
-  account,
+  aboutProductions,
+  contact,
 }
 
 extension ContentsExtension on Contents {
   String get title {
     switch (this) {
       case Contents.top:
-        return 'top';
+        return 'Top';
       case Contents.aboutMe:
-        return 'about Me';
-      case Contents.engineeringDesign:
-        return 'engineering/design';
-      case Contents.other:
-        return 'other';
-      case Contents.account:
-        return 'account';
+        return 'About me';
+      case Contents.aboutProductions:
+        return 'About Productions';
+      case Contents.contact:
+        return 'Contact';
     }
   }
+
   int get num {
     switch (this) {
       case Contents.top:
         return 0;
       case Contents.aboutMe:
         return 1;
-      case Contents.engineeringDesign:
+      case Contents.aboutProductions:
         return 2;
-      case Contents.other:
+      case Contents.contact:
         return 3;
-      case Contents.account:
-        return 4;
     }
   }
 }
