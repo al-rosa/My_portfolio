@@ -1,12 +1,75 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 
 import '../../constants.dart';
 
-class AboutProductions extends StatelessWidget {
+class AboutProductions extends StatefulWidget {
   const AboutProductions({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<AboutProductions> createState() => _AboutProductionsState();
+}
+
+class _AboutProductionsState extends State<AboutProductions> {
+  CrossFadeState crossFadeStateValue = CrossFadeState.showFirst;
+  late Timer crossFadeTimer;
+
+  _myDialog() {
+    debugPrint("text");
+    showDialog(
+      context: context,
+      builder: (context) => Center(
+        child: Container(
+          decoration: const BoxDecoration(color: IColor.white),
+          width: 500,
+          height: 500,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "pairium(Nativde App)",
+                style: ITextStyle.boldText,
+              ),
+              Row(
+                children: [
+                  Image.asset(
+                    'cat.png',
+                    width: 300,
+                    height: 300,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "使用技術",
+                        style: ITextStyle.regularText,
+                      ),
+                      Text(
+                        "Flutter(dart)",
+                        style: ITextStyle.detailText,
+                      ),
+                      Text(
+                        "Firebase",
+                        style: ITextStyle.detailText,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Text(
+                " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
+                style: ITextStyle.regularText,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +82,7 @@ class AboutProductions extends StatelessWidget {
         decoration: const BoxDecoration(
           color: IColor.grey,
           image: DecorationImage(
+            //TODO(画像がガビガビになるアニメーションを追加)
             image: AssetImage('rectangle.png'),
             fit: BoxFit.cover,
           ),
@@ -35,10 +99,16 @@ class AboutProductions extends StatelessWidget {
                   style: ITextStyle.boldText,
                 ),
                 Row(
-                  children: const [ProductionCard(), ProductionCard()],
+                  children: [
+                    ProductionCard(onTap: _myDialog),
+                    ProductionCard(onTap: _myDialog)
+                  ],
                 ),
                 Row(
-                  children: const [ProductionCard(), ProductionCard()],
+                  children: [
+                    ProductionCard(onTap: _myDialog),
+                    ProductionCard(onTap: _myDialog)
+                  ],
                 )
               ],
             ),
@@ -50,27 +120,26 @@ class AboutProductions extends StatelessWidget {
 }
 
 class ProductionCard extends StatelessWidget {
-  const ProductionCard({
-    Key? key,
-  }) : super(key: key);
+  const ProductionCard({Key? key, required this.onTap}) : super(key: key);
+
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     final Size screen = MediaQuery.of(context).size;
 
     return SizedBox(
-      width: screen.width * 0.33134921,
-      height: screen.height * 0.31262729,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("pairium(Nativde App)", style: ITextStyle.midText,),
+          const Text(
+            "pairium(Nativde App)",
+            style: ITextStyle.midText,
+          ),
           const SizedBox(height: 12),
           InkWell(
-            onTap: () {},
+            onTap: onTap,
             child: Container(
-              width: screen.width * 0.30621693,
-              height: screen.height * 0.25254582,
               decoration: BoxDecoration(
                 color: IColor.white,
                 border: Border.all(color: IColor.grey),
@@ -88,7 +157,10 @@ class ProductionCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text("使用技術", style: ITextStyle.regularText,),
+                        Text(
+                          "使用技術",
+                          style: ITextStyle.regularText,
+                        ),
                         Text(
                           "Flutter(dart)",
                           style: ITextStyle.detailText,

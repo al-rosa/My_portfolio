@@ -56,7 +56,7 @@ class AboutMe extends StatelessWidget {
                             "About Me",
                             style: ITextStyle.boldText,
                           ),
-                           Text(
+                          Text(
                             "「love avocado」",
                             style: ITextStyle.midText,
                           )
