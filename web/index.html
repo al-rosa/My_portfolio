@@ -41,6 +41,9 @@
 </head>
 <body>
   <script>
+    window.flutterWebRendererSettings = {
+      useCanvasKit: false
+    };
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({

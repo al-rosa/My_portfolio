@@ -53,10 +53,10 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: menu(),
-          ),
+          Positioned(
+              top: MediaQuery.of(context).size.height * 3 / 5,
+              left: 10,
+              child: menu()),
         ],
       ),
     );
@@ -70,77 +70,104 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   ];
 
   Widget menu() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  _scroll(Section.top.num);
-                },
-                child: Text(
-                  Section.top.title,
-                  style: ITextStyle.midText,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12),
+      child: SizedBox(
+        height: 30 * (sections.length + 1),
+        child: Stack(
+          children: [
+            MenuButton(
+                title: Section.top.title,
+                onTap: () => _scroll(Section.top.num)),
+            Positioned(
+              top: 30,
+              child: MenuButton(
+                title: "About ...",
+                onTap: () {
                   setState(() {
                     test = !test;
                   });
                 },
-                child: const Text(
-                  "About ...",
-                  style: ITextStyle.midText,
+              ),
+            ),
+            Positioned(
+              top: 60,
+              child: AnimatedOpacity(
+                opacity: test ? 1 : 0,
+                duration: const Duration(milliseconds: 200),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: MenuButton(
+                    title: Section.aboutMe.title,
+                    onTap: () {
+                      setState(() {
+                        test = !test;
+                      });
+                      _scroll(Section.aboutMe.num);
+                    },
+                  ),
                 ),
               ),
-              test
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              _scroll(Section.aboutMe.num);
-                            },
-                            child: const Text(
-                              "About me",
-                              style: ITextStyle.midText,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              _scroll(Section.aboutProductions.num);
-                            },
-                            child: const Text(
-                              "About production",
-                              style: ITextStyle.midText,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(),
-              TextButton(
-                onPressed: () {
-                  _scroll(Section.contact.num);
-                },
-                child: Text(
-                  Section.contact.title,
-                  style: ITextStyle.midText,
+            ),
+            Positioned(
+              top: 90,
+              child: AnimatedOpacity(
+                opacity: test ? 1 : 0,
+                duration: const Duration(milliseconds: 200),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: MenuButton(
+                    title: Section.aboutProductions.title,
+                    onTap: () {
+                      setState(() {
+                        test = !test;
+                      });
+                      _scroll(Section.aboutProductions.num);
+                    },
+                  ),
                 ),
               ),
-            ],
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              top: test ? 120 : 60,
+              child: MenuButton(
+                title: Section.contact.title,
+                onTap: () => _scroll(Section.contact.num),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  const MenuButton({
+    Key? key,
+    required this.onTap,
+    required this.title,
+  }) : super(key: key);
+
+  final Function() onTap;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        width: 300,
+        height: 30,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title,
+            style: ITextStyle.midText,
           ),
         ),
-      ],
+      ),
     );
   }
 }
