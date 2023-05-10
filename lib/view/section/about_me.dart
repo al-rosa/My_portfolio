@@ -16,9 +16,9 @@ class AboutMe extends StatelessWidget {
       width: screen.width,
       height: screen.height,
       child: Center(
-        child: SizedBox(
-          width: screen.width * 0.51058201,
-          height: screen.height * 0.52851324,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: screen.width * 0.2645, right: screen.width * 0.1984),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 
 import '../../constants.dart';
+import '../../model/entity/production.dart';
 
 class AboutProductions extends StatefulWidget {
   const AboutProductions({
@@ -18,62 +19,81 @@ class _AboutProductionsState extends State<AboutProductions> {
   CrossFadeState crossFadeStateValue = CrossFadeState.showFirst;
   late Timer crossFadeTimer;
 
-  _myDialog() {
-    debugPrint("text");
+  _myDialog(Production production) {
     showDialog(
-      context: context,
-      builder: (context) => Center(
-        child: Container(
-          decoration: const BoxDecoration(color: IColor.white),
-          width: 500,
-          height: 500,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "pairium(Nativde App)",
-                style: ITextStyle.boldText,
+        context: context,
+        builder: (context) {
+          final Size screen = MediaQuery.of(context).size;
+          return Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: IColor.white,
+                border: Border.all(
+                  color: IColor.grey,
+                ),
+                borderRadius: BorderRadius.circular(8),
               ),
-              Row(
-                children: [
-                  Image.asset(
-                    'cat.png',
-                    width: 300,
-                    height: 300,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "使用技術",
-                        style: ITextStyle.regularText,
-                      ),
-                      Text(
-                        "Flutter(dart)",
-                        style: ITextStyle.detailText,
-                      ),
-                      Text(
-                        "Firebase",
-                        style: ITextStyle.detailText,
-                      ),
-                    ],
-                  ),
-                ],
+              width: screen.width * 0.66111111,
+              height: screen.height * 0.57788945,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screen.width * 0.0625,
+                    vertical: screen.height * 0.05025126),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      production.title,
+                      style: ITextStyle.boldText,
+                    ),
+                    SizedBox(height: screen.height * 0.03015075),
+                    ProdactionDetail(
+                      screen: MediaQuery.of(context).size,
+                      production: production,
+                    ),
+                    SizedBox(height: screen.height * 0.04522613),
+                    Text(
+                      production.detail,
+                      style: ITextStyle.regularText,
+                    ),
+                  ],
+                ),
               ),
-              const Text(
-                " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
-                style: ITextStyle.regularText,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     final Size screen = MediaQuery.of(context).size;
+
+    final List<Production> productions = [
+      Production(
+        title: 'pairium(Native App)',
+        architecture: ["Flutter(dart)", "Firebase"],
+        detail:
+            " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
+      ),
+      Production(
+        title: '日報警察(Line Bot)',
+        architecture: ["Gas(JavaScript)", "LINE Messaging API", "Open AI API"],
+        detail:
+            " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
+      ),
+      Production(
+        title: 'MissingCatLog(Web Page)',
+        architecture: ["WordPress"],
+        detail:
+            " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
+      ),
+      Production(
+        title: 'お花屋さんの予約管理システム',
+        architecture: ["Gas(JavaScript)", "LINE Messaging API", "Open AI API"],
+        detail:
+            " 日報警察さんが、日報をチェックしてくれるLine Bot。主な機能は、「日報を送信していない人のカウント」、「日報に対して気まぐれで返事」。Open AIのAPIを試したくて制作に当たった。ユーザから送られたメッセージをMessaging APIが受け取り、Gasで処理を行う。GasからOpen AI APIをリクエストしている。",
+      ),
+    ];
 
     return SizedBox(
       width: screen.width,
@@ -87,97 +107,137 @@ class _AboutProductionsState extends State<AboutProductions> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: SizedBox(
-            width: screen.width * 0.67063492,
-            height: screen.height * 0.80346232,
+        child: Padding(
+            padding: EdgeInsets.only(left: screen.width * 0.2645),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: screen.height * 0.05025126),
                 Text(
                   Section.aboutProductions.title,
                   style: ITextStyle.boldText,
                 ),
-                Row(
-                  children: [
-                    ProductionCard(onTap: _myDialog),
-                    ProductionCard(onTap: _myDialog)
-                  ],
+                SizedBox(height: screen.height * 0.05025126),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: productions.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1.5,
+                      crossAxisCount: 2,
+                    ),
+                    itemBuilder: (context, index) {
+                      return ProductionCard(
+                        production: productions[index],
+                        screen: screen,
+                        onTap: () {
+                          _myDialog(productions[index]);
+                        },
+                      );
+                    },
+                  ),
                 ),
-                Row(
-                  children: [
-                    ProductionCard(onTap: _myDialog),
-                    ProductionCard(onTap: _myDialog)
-                  ],
-                )
               ],
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }
 }
 
 class ProductionCard extends StatelessWidget {
-  const ProductionCard({Key? key, required this.onTap}) : super(key: key);
+  const ProductionCard(
+      {Key? key,
+      required this.onTap,
+      required this.screen,
+      required this.production})
+      : super(key: key);
 
   final void Function() onTap;
+  final Production production;
+  final Size screen;
 
   @override
   Widget build(BuildContext context) {
-    final Size screen = MediaQuery.of(context).size;
-
+    debugPrint("${screen.height}");
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "pairium(Nativde App)",
+          Text(
+            production.title,
             style: ITextStyle.midText,
           ),
           const SizedBox(height: 12),
           InkWell(
             onTap: onTap,
             child: Container(
+              width: screen.width * 0.3125,
+              height: screen.height * 0.30150754,
               decoration: BoxDecoration(
                 color: IColor.white,
                 border: Border.all(color: IColor.grey),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
-                padding: EdgeInsets.all(screen.width * 0.02579365),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'cat.png',
-                      width: screen.width * 0.11243386,
-                      height: screen.width * 0.11243386,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "使用技術",
-                          style: ITextStyle.regularText,
-                        ),
-                        Text(
-                          "Flutter(dart)",
-                          style: ITextStyle.detailText,
-                        ),
-                        Text(
-                          "Firebase",
-                          style: ITextStyle.detailText,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.all(screen.width * 0.01777778),
+                child: ProdactionDetail(screen: screen, production: production),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class ProdactionDetail extends StatelessWidget {
+  const ProdactionDetail({
+    Key? key,
+    required this.screen,
+    required this.production,
+  }) : super(key: key);
+
+  final Size screen;
+  final Production production;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(
+          'cat.png',
+          width: screen.width * 0.11805556,
+          height: screen.width * 0.11805556,
+        ),
+        SizedBox(width: screen.width * 0.01666667),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: screen.height * 0.01758794),
+            const Text(
+              "使用技術",
+              style: ITextStyle.regularText,
+            ),
+            SizedBox(height: screen.height * 0.01758794),
+            SizedBox(
+              width: screen.width * 0.13888889,
+              height: screen.height * 0.11306533,
+              child: ListView.builder(
+                itemCount: production.architecture.length,
+                padding: EdgeInsets.only(
+                    left: 4, bottom: screen.height * 0.00502513),
+                itemBuilder: (context, index) {
+                  return Text(
+                    production.architecture[index],
+                    style: ITextStyle.regularText,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

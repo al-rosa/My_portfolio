@@ -30,6 +30,7 @@ class Contact extends StatelessWidget {
                 "ここまでご覧いただいてありがとうございました。当サイトや私自身についてコメントがございましたら下記のフォームからご連絡ください。また、お仕事の依頼も待っております。",
                 style: ITextStyle.regularText,
               ),
+              const SizedBox(height: 4),
               Row(
                 children: [
                   Padding(
@@ -37,7 +38,12 @@ class Contact extends StatelessWidget {
                     child: SizedBox(
                       width: screen.width * 0.24537037,
                       child: TextFormField(
+                        cursorColor: IColor.grey,
                         decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: IColor.grey, width: 1)),
+                          labelStyle: ITextStyle.regularText,
                           label: Text("Name."),
                         ),
                       ),
@@ -48,7 +54,12 @@ class Contact extends StatelessWidget {
                     child: SizedBox(
                       width: screen.width * 0.24537037,
                       child: TextFormField(
+                        cursorColor: IColor.grey,
                         decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: IColor.grey, width: 1)),
+                          labelStyle: ITextStyle.regularText,
                           label: Text("Email."),
                         ),
                       ),
@@ -56,8 +67,13 @@ class Contact extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 4),
               TextFormField(
+                cursorColor: IColor.grey,
                 decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: IColor.grey, width: 1)),
+                  labelStyle: ITextStyle.regularText,
                   label: Text("Comment."),
                 ),
               ),
