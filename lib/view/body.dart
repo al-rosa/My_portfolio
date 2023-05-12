@@ -79,52 +79,41 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             MenuButton(
                 title: Section.top.title,
                 onTap: () => _scroll(Section.top.num)),
-            Positioned(
-              top: 30,
-              child: MenuButton(
-                title: "About ...",
-                onTap: () {
-                  setState(() {
-                    test = !test;
-                  });
-                },
-              ),
-            ),
-            Positioned(
-              top: 60,
+            AnimatedPositioned(
+              top: test ? 60 : 30,
+              duration: const Duration(milliseconds: 200),
               child: AnimatedOpacity(
                 opacity: test ? 1 : 0,
                 duration: const Duration(milliseconds: 200),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: MenuButton(
-                    title: Section.aboutMe.title,
-                    onTap: () {
-                      setState(() {
-                        test = !test;
-                      });
-                      _scroll(Section.aboutMe.num);
-                    },
-                  ),
+                      title: Section.aboutMe.title,
+                      onTap: () {
+                        setState(() {
+                          test = !test;
+                        });
+                        _scroll(Section.aboutMe.num);
+                      }),
                 ),
               ),
             ),
-            Positioned(
-              top: 90,
+            AnimatedPositioned(
+              top: test ? 90 : 30,
+              duration: const Duration(milliseconds: 200),
               child: AnimatedOpacity(
                 opacity: test ? 1 : 0,
                 duration: const Duration(milliseconds: 200),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: MenuButton(
-                    title: Section.aboutProductions.title,
-                    onTap: () {
-                      setState(() {
-                        test = !test;
-                      });
-                      _scroll(Section.aboutProductions.num);
-                    },
-                  ),
+                      title: Section.aboutProductions.title,
+                      onTap: () {
+                        setState(() {
+                          test = !test;
+                        });
+                        _scroll(Section.aboutProductions.num);
+                      }),
                 ),
               ),
             ),
@@ -134,6 +123,17 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               child: MenuButton(
                 title: Section.contact.title,
                 onTap: () => _scroll(Section.contact.num),
+              ),
+            ),
+            Positioned(
+              top: 30,
+              child: MenuButton(
+                title: "About ...",
+                onTap: () {
+                  setState(() {
+                    test = !test;
+                  });
+                },
               ),
             ),
           ],

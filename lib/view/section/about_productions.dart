@@ -122,6 +122,7 @@ class _AboutProductionsState extends State<AboutProductions> {
                 Expanded(
                   child: GridView.builder(
                     itemCount: productions.length,
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 1.5,
