@@ -1,6 +1,6 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/constants.dart';
+import 'package:r0sa_profile/responsive_widget.dart';
 
 class Top extends StatefulWidget {
   const Top({
@@ -43,39 +43,51 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final Size screen = MediaQuery.of(context).size;
-
-    int typeSpeed = 100;
+    final Size screen = ResponsiveWidget.getScreenSize(context);
 
     return SizedBox(
       height: screen.height,
       width: screen.width,
       child: Center(
         child: Stack(
-          alignment: AlignmentDirectional.center,
           children: [
-            RotationTransition(
-              turns: _turns,
+            Align(
               alignment: Alignment.center,
-              child: Image.asset(
-                'record.png',
-                width: 360,
-                height: 360,
+              child: RotationTransition(
+                turns: _turns,
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'record.png',
+                  width: 360,
+                  height: 360,
+                ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('r0sa', style: ITextStyle.title),
-                AnimatedTextKit(
-                  totalRepeatCount: 1,
-                  animatedTexts: [
-                    TyperAnimatedText('Predict,Understanding,Agreement',
-                        speed: Duration(milliseconds: typeSpeed),
-                        textStyle: ITextStyle.subTitle)
-                  ],
-                ),
-              ],
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'r0sa',
+                    style: ResponsiveWidget.isLargeScreen(context)
+                        ? ITextStyle.title
+                        : ITextStyle.title.copyWith(
+                            fontSize: 140,
+                          ),
+                  ),
+                  ResponsiveWidget.isLargeScreen(context)
+                      ? const Text(
+                          'Predict,Understanding,Agreement',
+                          style: ITextStyle.subTitle,
+                        )
+                      : Text(
+                          'Predict\nUnderstanding\nAgreement',
+                          textAlign: TextAlign.center,
+                          style: ITextStyle.subTitle.copyWith(fontSize: 32),
+                        ),
+                ],
+              ),
             ),
           ],
         ),

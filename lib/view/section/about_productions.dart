@@ -125,9 +125,7 @@ class _AboutProductionsState extends State<AboutProductions> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.5,
-                      crossAxisCount: 2,
-                    ),
+                            crossAxisCount: 2, childAspectRatio: 1.6),
                     itemBuilder: (context, index) {
                       return ProductionCard(
                         production: productions[index],
@@ -160,7 +158,7 @@ class ProductionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("${screen.height}");
+    debugPrint("${screen.width}");
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
