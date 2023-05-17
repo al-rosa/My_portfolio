@@ -10,6 +10,11 @@ class ITextStyle {
   static const TextStyle detailText =
       TextStyle(fontSize: 14, color: IColor.textColor);
 
+  static const TextStyle minBoldText = TextStyle(
+      fontSize: 22, color: IColor.textColor, fontWeight: FontWeight.bold);
+  static const TextStyle minMidText =
+      TextStyle(fontSize: 17, color: IColor.textColor);
+
   static const TextStyle title =
       TextStyle(fontSize: 210, fontWeight: FontWeight.w100);
   static const TextStyle subTitle =
