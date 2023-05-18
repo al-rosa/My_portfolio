@@ -5,6 +5,7 @@ import 'package:r0sa_profile/model/emum/section.dart';
 
 import '../../constants.dart';
 import '../../model/entity/production.dart';
+import '../../responsive_widget.dart';
 
 class AboutProductions extends StatefulWidget {
   const AboutProductions({
@@ -66,7 +67,7 @@ class _AboutProductionsState extends State<AboutProductions> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screen = MediaQuery.of(context).size;
+    final Size screen = ResponsiveWidget.getScreenSize(context);
 
     final List<Production> productions = [
       Production(
@@ -108,34 +109,57 @@ class _AboutProductionsState extends State<AboutProductions> {
           ),
         ),
         child: Padding(
-            padding: EdgeInsets.only(left: screen.width * 0.2645),
+            padding: ResponsiveWidget.isSmallScreen(context)
+                ? EdgeInsets.zero
+                : EdgeInsets.only(left: screen.width * 0.2645),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: screen.height * 0.05025126),
+                ResponsiveWidget.isSmallScreen(context)
+                    ? Container()
+                    : SizedBox(height: screen.height * 0.05025126),
                 Text(
                   Section.aboutProductions.title,
                   style: ITextStyle.boldText,
                 ),
-                SizedBox(height: screen.height * 0.05025126),
+                ResponsiveWidget.isSmallScreen(context)
+                    ? Container()
+                    : SizedBox(height: screen.height * 0.05025126),
                 Expanded(
-                  child: GridView.builder(
-                    itemCount: productions.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 1.6),
-                    itemBuilder: (context, index) {
-                      return ProductionCard(
-                        production: productions[index],
-                        screen: screen,
-                        onTap: () {
-                          _myDialog(productions[index]);
-                        },
-                      );
-                    },
-                  ),
+                  child: ResponsiveWidget.isSmallScreen(context)
+                      ? ListView.builder(
+                          itemCount: productions.length,
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          itemBuilder: ((context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: ProductionCard(
+                                onTap: () {},
+                                screen: screen,
+                                production: productions[index],
+                                width: screen.width * 0.666,
+                                height: screen.height * 0.5,
+                              ),
+                            );
+                          }),
+                        )
+                      : GridView.builder(
+                          itemCount: productions.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 1.6),
+                          itemBuilder: (context, index) {
+                            return ProductionCard(
+                              production: productions[index],
+                              screen: screen,
+                              onTap: () => _myDialog(productions[index]),
+                            );
+                          },
+                        ),
                 ),
               ],
             )),
@@ -145,20 +169,27 @@ class _AboutProductionsState extends State<AboutProductions> {
 }
 
 class ProductionCard extends StatelessWidget {
-  const ProductionCard(
-      {Key? key,
-      required this.onTap,
-      required this.screen,
-      required this.production})
-      : super(key: key);
+  const ProductionCard({
+    Key? key,
+    required this.onTap,
+    required this.screen,
+    required this.production,
+    this.width = 510,
+    this.height = 290,
+    this.childPadding = 24,
+  }) : super(key: key);
 
   final void Function() onTap;
   final Production production;
   final Size screen;
 
+  final double width;
+  final double height;
+  final double childPadding;
+
   @override
   Widget build(BuildContext context) {
-    debugPrint("${screen.width}");
+    debugPrint("${screen.height}");
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,15 +202,15 @@ class ProductionCard extends StatelessWidget {
           InkWell(
             onTap: onTap,
             child: Container(
-              width: screen.width * 0.3125,
-              height: screen.height * 0.30150754,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 color: IColor.white,
                 border: Border.all(color: IColor.grey),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
-                padding: EdgeInsets.all(screen.width * 0.01777778),
+                padding: EdgeInsets.all(childPadding),
                 child: ProdactionDetail(screen: screen, production: production),
               ),
             ),
