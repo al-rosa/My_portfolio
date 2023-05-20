@@ -20,7 +20,7 @@ class _AboutProductionsState extends State<AboutProductions> {
   CrossFadeState crossFadeStateValue = CrossFadeState.showFirst;
   late Timer crossFadeTimer;
 
-  _myDialog(Production production) {
+  _myDialog(Production production, isSmall) {
     showDialog(
         context: context,
         builder: (context) {
@@ -34,31 +34,38 @@ class _AboutProductionsState extends State<AboutProductions> {
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              width: screen.width * 0.66111111,
+              width: screen.width * 0.86111111,
               height: screen.height * 0.57788945,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: screen.width * 0.0625,
                     vertical: screen.height * 0.05025126),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      production.title,
-                      style: ITextStyle.boldText,
-                    ),
-                    SizedBox(height: screen.height * 0.03015075),
-                    ProdactionDetail(
-                      screen: MediaQuery.of(context).size,
-                      production: production,
-                    ),
-                    SizedBox(height: screen.height * 0.04522613),
-                    Text(
-                      production.detail,
-                      style: ITextStyle.regularText,
-                    ),
-                  ],
-                ),
+                child: isSmall
+                    ? Text(production.detail)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            production.title,
+                            style: ITextStyle.boldText,
+                          ),
+                          SizedBox(height: screen.height * 0.03015075),
+                          isSmall
+                              ? MinProdactionDetail(
+                                  screen: screen,
+                                  production: production,
+                                )
+                              : ProdactionDetail(
+                                  screen: MediaQuery.of(context).size,
+                                  production: production,
+                                ),
+                          SizedBox(height: screen.height * 0.04522613),
+                          Text(
+                            production.detail,
+                            style: ITextStyle.regularText,
+                          ),
+                        ],
+                      ),
               ),
             ),
           );
@@ -96,6 +103,8 @@ class _AboutProductionsState extends State<AboutProductions> {
       ),
     ];
 
+    debugPrint(screen.width.toString());
+
     return SizedBox(
       width: screen.width,
       height: screen.height,
@@ -110,38 +119,41 @@ class _AboutProductionsState extends State<AboutProductions> {
         ),
         child: Padding(
             padding: ResponsiveWidget.isSmallScreen(context)
-                ? EdgeInsets.zero
+                ? EdgeInsets.only(top: screen.height * 0.11160714, left: 24)
                 : EdgeInsets.only(left: screen.width * 0.2645),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ResponsiveWidget.isSmallScreen(context)
-                    ? Container()
+                    ? SizedBox(height: screen.height * 0.05025126)
                     : SizedBox(height: screen.height * 0.05025126),
                 Text(
                   Section.aboutProductions.title,
                   style: ITextStyle.boldText,
                 ),
                 ResponsiveWidget.isSmallScreen(context)
-                    ? Container()
+                    ? SizedBox(height: screen.height * 0.05025126)
                     : SizedBox(height: screen.height * 0.05025126),
                 Expanded(
                   child: ResponsiveWidget.isSmallScreen(context)
                       ? ListView.builder(
                           itemCount: productions.length,
                           scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           itemBuilder: ((context, index) {
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: ProductionCard(
-                                onTap: () {},
+                                onTap: () => _myDialog(
+                                  productions[index],
+                                  true,
+                                ),
                                 screen: screen,
                                 production: productions[index],
                                 width: screen.width * 0.666,
                                 height: screen.height * 0.5,
+                                isSmallScreen: true,
                               ),
                             );
                           }),
@@ -156,7 +168,7 @@ class _AboutProductionsState extends State<AboutProductions> {
                             return ProductionCard(
                               production: productions[index],
                               screen: screen,
-                              onTap: () => _myDialog(productions[index]),
+                              onTap: () => _myDialog(productions[index], false),
                             );
                           },
                         ),
@@ -174,6 +186,7 @@ class ProductionCard extends StatelessWidget {
     required this.onTap,
     required this.screen,
     required this.production,
+    this.isSmallScreen = false,
     this.width = 510,
     this.height = 290,
     this.childPadding = 24,
@@ -183,13 +196,13 @@ class ProductionCard extends StatelessWidget {
   final Production production;
   final Size screen;
 
+  final bool isSmallScreen;
   final double width;
   final double height;
   final double childPadding;
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("${screen.height}");
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,12 +224,71 @@ class ProductionCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(childPadding),
-                child: ProdactionDetail(screen: screen, production: production),
+                child: isSmallScreen
+                    ? MinProdactionDetail(
+                        screen: screen,
+                        production: production,
+                      )
+                    : ProdactionDetail(
+                        screen: screen,
+                        production: production,
+                      ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class MinProdactionDetail extends StatelessWidget {
+  const MinProdactionDetail({
+    Key? key,
+    required this.screen,
+    required this.production,
+  }) : super(key: key);
+
+  final Size screen;
+  final Production production;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset(
+          'cat.png',
+          width: screen.width * 0.41062802,
+          height: screen.width * 0.41062802,
+        ),
+        SizedBox(width: screen.width * 0.01666667),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: screen.height * 0.01758794),
+            const Text(
+              "使用技術",
+              style: ITextStyle.regularText,
+            ),
+            SizedBox(height: screen.height * 0.01758794),
+            SizedBox(
+              width: screen.width * 0.51062802,
+              height: screen.width * 0.41062802,
+              child: ListView.builder(
+                itemCount: production.architecture.length,
+                padding: EdgeInsets.only(
+                    left: 4, bottom: screen.height * 0.00502513),
+                itemBuilder: (context, index) {
+                  return Text(
+                    "- ${production.architecture[index]}",
+                    style: ITextStyle.regularText,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

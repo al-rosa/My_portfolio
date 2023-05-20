@@ -12,7 +12,6 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
-    final bool isLarge = ResponsiveWidget.isLargeScreen(context);
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
 
     return SizedBox(
