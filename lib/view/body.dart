@@ -33,6 +33,10 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   void _scroll(int index) {
+    setState(() {
+      current_section = index;
+      debugPrint(current_section.toString());
+    });
     _itemScrollController.scrollTo(
       index: index,
       duration: const Duration(seconds: 1),
@@ -41,6 +45,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   bool isOpenAbout = false;
+
+  int current_section = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +71,44 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   top: 30,
                   child: topMenu(screen),
                 ),
+          ResponsiveWidget.isLargeScreen(context)
+              ? Container()
+              : Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 24),
+                    child: current_section == 0
+                        ? nextSectionButton()
+                        : current_section == sections.length - 1
+                            ? previousSectionButton()
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  previousSectionButton(),
+                                  nextSectionButton()
+                                ],
+                              ),
+                  ),
+                )
         ],
       ),
     );
+  }
+
+  IconButton nextSectionButton() {
+    return IconButton(
+        onPressed: (() {
+          _scroll(current_section + 1);
+        }),
+        icon: const Icon(Icons.arrow_downward_outlined));
+  }
+
+  IconButton previousSectionButton() {
+    return IconButton(
+        onPressed: (() {
+          _scroll(current_section - 1);
+        }),
+        icon: const Icon(Icons.arrow_upward_outlined));
   }
 
   Widget topMenu(Size screen) {
