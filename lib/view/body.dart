@@ -34,8 +34,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
 
   void _scroll(int index) {
     setState(() {
-      current_section = index;
-      debugPrint(current_section.toString());
+      currentSection = index;
     });
     _itemScrollController.scrollTo(
       index: index,
@@ -45,14 +44,32 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   bool isOpenAbout = false;
+  bool isOpenMenu = false;
 
-  int current_section = 0;
+  int currentSection = 0;
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
 
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: ListView.builder(
+          itemCount: sections.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 22, top: 24),
+              child: MenuButton(
+                onTap: () => _scroll(index),
+                title: Section.values[index].title,
+              ),
+            );
+          },
+        ),
+      ),
       body: Stack(
         children: [
           ScrollablePositionedList.builder(
@@ -69,7 +86,13 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                 )
               : Positioned(
                   top: 30,
-                  child: topMenu(screen),
+                  right: 30,
+                  child: IconButton(
+                    onPressed: () {
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                    icon: const Icon(Icons.menu),
+                  ),
                 ),
           ResponsiveWidget.isLargeScreen(context)
               ? Container()
@@ -77,9 +100,9 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 24),
-                    child: current_section == 0
+                    child: currentSection == 0
                         ? nextSectionButton()
-                        : current_section == sections.length - 1
+                        : currentSection == sections.length - 1
                             ? previousSectionButton()
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,17 +121,17 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   IconButton nextSectionButton() {
     return IconButton(
         onPressed: (() {
-          _scroll(current_section + 1);
+          _scroll(currentSection + 1);
         }),
-        icon: const Icon(Icons.arrow_downward_outlined));
+        icon: const Icon(Icons.keyboard_arrow_down));
   }
 
   IconButton previousSectionButton() {
     return IconButton(
         onPressed: (() {
-          _scroll(current_section - 1);
+          _scroll(currentSection - 1);
         }),
-        icon: const Icon(Icons.arrow_upward_outlined));
+        icon: const Icon(Icons.keyboard_arrow_up));
   }
 
   Widget topMenu(Size screen) {
