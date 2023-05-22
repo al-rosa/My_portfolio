@@ -78,13 +78,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             itemScrollController: _itemScrollController,
             itemPositionsListener: _itemPositionsListener,
           ),
-          ResponsiveWidget.isLargeScreen(context)
+          ResponsiveWidget.isSmallScreen(context)
               ? Positioned(
-                  top: screen.height * 3 / 5,
-                  left: 10,
-                  child: menu(),
-                )
-              : Positioned(
                   top: 30,
                   right: 30,
                   child: IconButton(
@@ -93,10 +88,14 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                     },
                     icon: const Icon(Icons.menu),
                   ),
+                )
+              : Positioned(
+                  top: screen.height * 3 / 5,
+                  left: 10,
+                  child: menu(),
                 ),
-          ResponsiveWidget.isLargeScreen(context)
-              ? Container()
-              : Align(
+          ResponsiveWidget.isSmallScreen(context)
+              ? Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 24),
@@ -113,6 +112,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                               ),
                   ),
                 )
+              : Container(),
         ],
       ),
     );
@@ -182,7 +182,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
         child: Stack(
           children: [
             SizedBox(
-              width: 300,
+              width: 250,
               height: 30,
               child: MenuButton(
                   title: Section.top.title,
@@ -197,7 +197,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: SizedBox(
-                    width: 300,
+                    width: 250,
                     height: 30,
                     child: MenuButton(
                         title: Section.aboutMe.title,
@@ -220,7 +220,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: SizedBox(
-                    width: 300,
+                    width: 250,
                     height: 30,
                     child: MenuButton(
                         title: Section.aboutProductions.title,
@@ -238,7 +238,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               duration: const Duration(milliseconds: 200),
               top: isOpenAbout ? 120 : 60,
               child: SizedBox(
-                width: 300,
+                width: 250,
                 height: 30,
                 child: MenuButton(
                     title: Section.contact.title,
@@ -248,7 +248,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             Positioned(
               top: 30,
               child: SizedBox(
-                width: 300,
+                width: 250,
                 height: 30,
                 child: MenuButton(
                   title: "About ...",
