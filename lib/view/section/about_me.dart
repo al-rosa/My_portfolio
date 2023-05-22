@@ -13,6 +13,10 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
+    final bool isLarge = ResponsiveWidget.isLargeScreen(context);
+
+    const double minImageSize = 140;
+    const double maxImageSize = 190;
 
     return SizedBox(
       width: screen.width,
@@ -20,7 +24,7 @@ class AboutMe extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: isSmall
-              ? const EdgeInsets.symmetric(horizontal: 14)
+              ? const EdgeInsets.symmetric(horizontal: 24)
               : EdgeInsets.only(
                   left: screen.width * 0.2645,
                   right: screen.width * 0.1984,
@@ -36,21 +40,21 @@ class AboutMe extends StatelessWidget {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  isSmall
-                      ? Image.asset(
-                          'cat.png',
-                          width: screen.width * 0.35897436,
-                          height: screen.width * 0.35897436,
-                        )
-                      : Image.asset(
-                          'cat.png',
-                          width: screen.width * 0.11243386,
-                          height: screen.width * 0.11243386,
-                        ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      minWidth: minImageSize,
+                      minHeight: minImageSize,
+                      maxWidth: maxImageSize,
+                      maxHeight: maxImageSize,
+                    ),
+                    child: Image.asset(
+                      'cat.png',
+                      width: screen.width * 0.37837838,
+                      height: screen.width * 0.37837838,
+                    ),
+                  ),
                   SizedBox(width: isSmall ? 14 : 26),
-                  isSmall
-                      ? const SmallAboutMe()
-                      : const LargeAboutMe()
+                  isLarge ? const LargeAboutMe() : const SmallAboutMe(),
                 ],
               ),
               const SizedBox(height: 36),
@@ -87,9 +91,24 @@ class SmallAboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              "About Me",
+              style: ITextStyle.minBoldText,
+            ),
+            Text(
+              "「like sunglasses」",
+              style: ITextStyle.minMidText,
+            )
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
@@ -97,45 +116,30 @@ class SmallAboutMe extends StatelessWidget {
                 style: ITextStyle.minBoldText,
               ),
               Text(
-                "「like sunglasses」",
+                "「love avocado」",
                 style: ITextStyle.minMidText,
               )
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "About Me",
-                  style: ITextStyle.minBoldText,
-                ),
-                Text(
-                  "「love avocado」",
-                  style: ITextStyle.minMidText,
-                )
-              ],
-            ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                "About Me",
+                style: ITextStyle.minBoldText,
+              ),
+              Text(
+                "「adore cat」",
+                style: ITextStyle.minMidText,
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "About Me",
-                  style: ITextStyle.minBoldText,
-                ),
-                Text(
-                  "「adore cat」",
-                  style: ITextStyle.minMidText,
-                )
-              ],
-            ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 }
 

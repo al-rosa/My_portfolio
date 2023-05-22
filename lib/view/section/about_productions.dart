@@ -103,7 +103,7 @@ class _AboutProductionsState extends State<AboutProductions> {
       ),
     ];
 
-    debugPrint(screen.width.toString());
+    debugPrint("screen width = ${screen.width}");
 
     return SizedBox(
       width: screen.width,
