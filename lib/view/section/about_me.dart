@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
+import 'package:r0sa_profile/view/section/contact.dart';
 
 import '../../constants.dart';
 
@@ -15,7 +16,7 @@ class AboutMe extends StatelessWidget {
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
     final bool isLarge = ResponsiveWidget.isLargeScreen(context);
 
-    const double minImageSize = 140;
+    const double minImageSize = 120;
     const double maxImageSize = 190;
 
     return SizedBox(
@@ -24,7 +25,7 @@ class AboutMe extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: isSmall
-              ? const EdgeInsets.symmetric(horizontal: 24)
+              ? const EdgeInsets.symmetric(horizontal: 14)
               : EdgeInsets.only(
                   left: screen.width * 0.2645,
                   right: screen.width * 0.1984,
@@ -53,8 +54,12 @@ class AboutMe extends StatelessWidget {
                       height: screen.width * 0.37837838,
                     ),
                   ),
-                  SizedBox(width: isSmall ? 14 : 26),
-                  isLarge ? const LargeAboutMe() : const SmallAboutMe(),
+                  SizedBox(width: isSmall ? 8 : 26),
+                  isLarge
+                      ? const LargeAboutMe()
+                      : screen.width < 300
+                          ? Container()
+                          : const SmallAboutMe(),
                 ],
               ),
               const SizedBox(height: 36),
