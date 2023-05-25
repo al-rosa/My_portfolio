@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:r0sa_profile/constants.dart';
 
 import 'view/body.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(color: IColor.transColor),
         textTheme:
             GoogleFonts.courierPrimeTextTheme(Theme.of(context).textTheme),
       ),

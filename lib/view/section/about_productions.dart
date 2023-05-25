@@ -103,7 +103,9 @@ class _AboutProductionsState extends State<AboutProductions> {
       ),
     ];
 
-    debugPrint("screen width = ${screen.width}");
+    final bool isSmallScreen = ResponsiveWidget.isSmallScreen(context);
+    final bool isMediumScreen = ResponsiveWidget.isMediumScreen(context);
+    final bool isLargeScreen = ResponsiveWidget.isLargeScreen(context);
 
     return SizedBox(
       width: screen.width,
@@ -118,59 +120,69 @@ class _AboutProductionsState extends State<AboutProductions> {
           ),
         ),
         child: Padding(
-            padding: ResponsiveWidget.isSmallScreen(context)
-                ? EdgeInsets.only(top: screen.height * 0.11160714, left: 24)
-                : EdgeInsets.only(left: screen.width * 0.2645),
+            padding: isLargeScreen || isMediumScreen
+                ? EdgeInsets.only(left: screen.width * 0.2645)
+                : EdgeInsets.only(top: screen.height * 0.11160714, left: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ResponsiveWidget.isSmallScreen(context)
-                    ? SizedBox(height: screen.height * 0.05025126)
-                    : SizedBox(height: screen.height * 0.05025126),
+                isSmallScreen
+                    ? const SizedBox(height: 0)
+                    : isMediumScreen
+                        ? const SizedBox(height: 120)
+                        : SizedBox(height: screen.height * 0.05025126),
                 Text(
                   Section.aboutProductions.title,
                   style: ITextStyle.boldText,
                 ),
-                ResponsiveWidget.isSmallScreen(context)
-                    ? SizedBox(height: screen.height * 0.05025126)
-                    : SizedBox(height: screen.height * 0.05025126),
+                SizedBox(height: screen.height * 0.05025126),
                 Expanded(
-                  child: ResponsiveWidget.isSmallScreen(context)
-                      ? ListView.builder(
+                  child: isLargeScreen
+                      ? GridView.builder(
+                          itemCount: productions.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 11,
+                          ),
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              width: 300,
+                              height: 300,
+                              child: ProductionCard(
+                                production: productions[index],
+                                screen: screen,
+                                onTap: () =>
+                                    _myDialog(productions[index], false),
+                              ),
+                            );
+                          },
+                        )
+                      : ListView.builder(
                           itemCount: productions.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: ((context, index) {
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
-                              child: ProductionCard(
-                                onTap: () => _myDialog(
-                                  productions[index],
-                                  true,
+                              child: SizedBox(
+                                width: 260,
+                                height: 423,
+                                child: ProductionCard(
+                                  onTap: () => _myDialog(
+                                    productions[index],
+                                    true,
+                                  ),
+                                  screen: screen,
+                                  production: productions[index],
+                                  isSmallScreen: true,
                                 ),
-                                screen: screen,
-                                production: productions[index],
-                                width: screen.width * 0.666,
-                                height: screen.height * 0.5,
-                                isSmallScreen: true,
                               ),
                             );
                           }),
-                        )
-                      : GridView.builder(
-                          itemCount: productions.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 1.6),
-                          itemBuilder: (context, index) {
-                            return ProductionCard(
-                              production: productions[index],
-                              screen: screen,
-                              onTap: () => _myDialog(productions[index], false),
-                            );
-                          },
                         ),
                 ),
               ],
@@ -187,8 +199,6 @@ class ProductionCard extends StatelessWidget {
     required this.screen,
     required this.production,
     this.isSmallScreen = false,
-    this.width = 510,
-    this.height = 290,
     this.childPadding = 24,
   }) : super(key: key);
 
@@ -197,8 +207,6 @@ class ProductionCard extends StatelessWidget {
   final Size screen;
 
   final bool isSmallScreen;
-  final double width;
-  final double height;
   final double childPadding;
 
   @override
@@ -206,6 +214,7 @@ class ProductionCard extends StatelessWidget {
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             production.title,
@@ -215,8 +224,6 @@ class ProductionCard extends StatelessWidget {
           InkWell(
             onTap: onTap,
             child: Container(
-              width: width,
-              height: height,
               decoration: BoxDecoration(
                 color: IColor.white,
                 border: Border.all(color: IColor.grey),
@@ -254,12 +261,22 @@ class MinProdactionDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double minImageSize = 180;
+    const double maxImageSize = 180;
     return Column(
       children: [
-        Image.asset(
-          'cat.png',
-          width: screen.width * 0.41062802,
-          height: screen.width * 0.41062802,
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: minImageSize,
+            minHeight: minImageSize,
+            maxWidth: maxImageSize,
+            maxHeight: maxImageSize,
+          ),
+          child: Image.asset(
+            'cat.png',
+            width: screen.width * 0.37837838,
+            height: screen.width * 0.37837838,
+          ),
         ),
         SizedBox(width: screen.width * 0.01666667),
         Column(
@@ -271,19 +288,22 @@ class MinProdactionDetail extends StatelessWidget {
               style: ITextStyle.regularText,
             ),
             SizedBox(height: screen.height * 0.01758794),
-            SizedBox(
-              width: screen.width * 0.51062802,
-              height: screen.width * 0.41062802,
-              child: ListView.builder(
-                itemCount: production.architecture.length,
-                padding: EdgeInsets.only(
-                    left: 4, bottom: screen.height * 0.00502513),
-                itemBuilder: (context, index) {
-                  return Text(
-                    "- ${production.architecture[index]}",
-                    style: ITextStyle.regularText,
-                  );
-                },
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 130),
+              child: SizedBox(
+                width: screen.width * 0.51062802,
+                height: screen.width * 0.41062802,
+                child: ListView.builder(
+                  itemCount: production.architecture.length,
+                  padding: EdgeInsets.only(
+                      left: 4, bottom: screen.height * 0.00502513),
+                  itemBuilder: (context, index) {
+                    return Text(
+                      "- ${production.architecture[index]}",
+                      style: ITextStyle.regularText,
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -305,12 +325,22 @@ class ProdactionDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double minImageSize = 100;
+    const double maxImageSize = 180;
     return Row(
       children: [
-        Image.asset(
-          'cat.png',
-          width: screen.width * 0.11805556,
-          height: screen.width * 0.11805556,
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: minImageSize,
+            minHeight: minImageSize,
+            maxWidth: maxImageSize,
+            maxHeight: maxImageSize,
+          ),
+          child: Image.asset(
+            'cat.png',
+            width: screen.width * 0.37837838,
+            height: screen.width * 0.37837838,
+          ),
         ),
         SizedBox(width: screen.width * 0.01666667),
         Column(

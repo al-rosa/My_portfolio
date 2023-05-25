@@ -22,6 +22,7 @@ class ITextStyle {
 }
 
 class IColor {
+  static const Color transColor = Color(0x00666666);
   static const Color textColor = Color(0xff666666);
   static const Color background = Color(0xffffffff);
   static const Color white = Color(0xffffffff);
