@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
-import 'package:r0sa_profile/view/section/contact.dart';
+import 'package:r0sa_profile/view/components/is_web_image.dart';
 
 import '../../constants.dart';
 
@@ -49,7 +49,7 @@ class AboutMe extends StatelessWidget {
                       maxHeight: maxImageSize,
                     ),
                     child: Image.asset(
-                      'cat.png',
+                    path('cat.png'),
                       width: screen.width * 0.37837838,
                       height: screen.width * 0.37837838,
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/constants.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
+import 'package:r0sa_profile/view/components/is_web_image.dart';
 
 class Top extends StatefulWidget {
   const Top({
@@ -57,7 +58,7 @@ class _TopState extends State<Top> with SingleTickerProviderStateMixin {
                 turns: _turns,
                 alignment: Alignment.center,
                 child: Image.asset(
-                  'record.png',
+                  path('record.png'),
                   width: 360,
                   height: 360,
                 ),

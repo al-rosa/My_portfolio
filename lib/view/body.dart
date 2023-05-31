@@ -3,12 +3,12 @@ import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 import 'package:r0sa_profile/view/section/about_productions.dart';
 import 'package:r0sa_profile/view/section/contact.dart';
+import 'package:r0sa_profile/view/section/top_v2.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import 'components/widget/menu_button.dart';
 import 'section/about_me.dart';
-import 'section/top.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -168,7 +168,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
-    const Top(),
+    const TopV2(),
     const AboutMe(),
     const AboutProductions(),
     const Contact(),
