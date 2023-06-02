@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/constants.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 
+import '../components/is_web_image.dart';
+
 class TopV2 extends StatelessWidget {
   const TopV2({Key? key}) : super(key: key);
 
@@ -18,16 +20,26 @@ class TopV2 extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.only(
-              top: screen.height / 4,
-              left: screen.width / 3,
-              right: screen.width / 3),
+            top: screen.height / 4,
+            left: screen.width / 3,
+            right: screen.width / 3,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Center(
-                child: CircleAvatar(
-                  radius: 80,
-                  backgroundColor: IColor.textColor,
+              Center(
+                child: Container(
+                  width: 160,
+                  height: 160,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        path("r0sa.png"),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: screen.height / 17),

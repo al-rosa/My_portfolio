@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 import '../../../constants.dart';
 import '../../../model/entity/production.dart';

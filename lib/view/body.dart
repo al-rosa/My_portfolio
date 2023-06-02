@@ -8,7 +8,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import 'components/widget/menu_button.dart';
-import 'section/about_me.dart';
+import 'section/about_me_v2.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -169,7 +169,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
 
   List<Widget> sections = [
     const TopV2(),
-    const AboutMe(),
+    const AboutMeV2(),
     const AboutProductions(),
     const Contact(),
   ];
