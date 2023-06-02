@@ -20,7 +20,7 @@ class MenuButton extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: ITextStyle.midText,
+          style: ITextStyle.midText.copyWith(color: IColor.textColor),
         ),
       ),
     );

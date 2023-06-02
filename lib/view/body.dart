@@ -57,6 +57,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
+        backgroundColor: IColor.blue,
         child: ListView.builder(
           itemCount: sections.length,
           itemBuilder: (context, index) {
@@ -94,6 +95,16 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   left: 10,
                   child: menu(),
                 ),
+          // Container(
+          //     width: screen.width * 0.15,
+          //     height: screen.height,
+          //     color: IColor.blue,
+          //     child: Positioned(
+          //       top: screen.height * 3 / 5,
+          //       left: 10,
+          //       child: menu(),
+          //     ),
+          //   ),
           ResponsiveWidget.isSmallScreen(context)
               ? Align(
                   alignment: Alignment.bottomCenter,

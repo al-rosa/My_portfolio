@@ -10,6 +10,7 @@ class TopV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
+    final bool isSmall = ResponsiveWidget.isSmallScreen(context);
 
     return Container(
       width: screen.width,
@@ -17,68 +18,117 @@ class TopV2 extends StatelessWidget {
       decoration: const BoxDecoration(
         color: IColor.background,
       ),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: screen.height / 4,
-            left: screen.width / 3,
-            right: screen.width / 3,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 160,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                        path("r0sa.png"),
-                      ),
-                    ),
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    path("r0sa.png"),
                   ),
                 ),
               ),
-              SizedBox(height: screen.height / 17),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
-                  Text(
-                    "r0sa",
-                    style: ITextStyle.title,
+            ),
+            SizedBox(height: screen.height / 17),
+            Padding(
+              padding: isSmall
+                  ? EdgeInsets.zero
+                  : EdgeInsets.only(left: screen.width * 0.35),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "r0sa",
+                        style: isSmall ? ITextStyle.boldText : ITextStyle.title,
+                      ),
+                      const SizedBox(width: 12),
+                      CircleAvatar(
+                        radius: isSmall ? 18 : 30,
+                        backgroundColor: IColor.textColor,
+                      ),
+                      const SizedBox(width: 12),
+                      CircleAvatar(
+                        radius: isSmall ? 18 : 30,
+                        backgroundColor: IColor.blue,
+                      ),
+                      const SizedBox(width: 12),
+                      CircleAvatar(
+                        radius: isSmall ? 18 : 30,
+                        backgroundColor: IColor.green,
+                      ),
+                      const SizedBox(width: 12),
+                      CircleAvatar(
+                        radius: isSmall ? 18 : 30,
+                        backgroundColor: IColor.brown,
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: IColor.textColor,
+                  const SizedBox(height: 12),
+                  const Text("関西のFlutterエンジニア。", style: ITextStyle.subTitle),
+                  const SizedBox(height: 22),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundColor: IColor.blue,
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          "Engineering：Fluuter,React,Go,Firebase",
+                          style: ITextStyle.regularText,
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: IColor.blue,
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundColor: IColor.green,
+                      ),
+                      SizedBox(width: 12),
+                      Text(
+                        "Design：Figma,graphic",
+                        style: ITextStyle.regularText,
+                      )
+                    ],
                   ),
-                  SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: IColor.green,
-                  ),
-                  SizedBox(width: 12),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: IColor.brown,
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundColor: IColor.brown,
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          "Hobbies：watching movies,painting,petting cats.",
+                          style: ITextStyle.regularText,
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              const Text(
-                "関西のFlutterエンジニア。\nengineering：Fluuter,React,Go,Firebase\ndesign：Figma,graphic\nHobbies：watching movies,painting,petting cats.",
-                style: ITextStyle.subTitle,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

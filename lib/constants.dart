@@ -24,7 +24,7 @@ class ITextStyle {
   static const TextStyle title = TextStyle(
       fontSize: 33, fontWeight: FontWeight.bold, color: IColor.textColor);
   static const TextStyle subTitle = TextStyle(
-      fontSize: 20, color: IColor.textColor, fontWeight: FontWeight.w500);
+      fontSize: 20, color: IColor.textColor, fontWeight: FontWeight.bold);
 }
 
 class IColor {
