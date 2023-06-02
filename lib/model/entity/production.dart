@@ -6,10 +6,10 @@ class Production {
     required this.image,
   });
 
-  String title;
-  List<String> architecture;
-  String detail;
-  String image;
+ final String title;
+ final List<String> architecture;
+ final String detail;
+ final  String image;
 }
 
 final List<Production> productions = [

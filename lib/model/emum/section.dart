@@ -1,6 +1,7 @@
 enum Section {
   top,
   aboutMe,
+  skils,
   aboutProductions,
   contact,
 }
@@ -12,6 +13,8 @@ extension ContentsExtension on Section {
         return 'Top';
       case Section.aboutMe:
         return 'About me';
+      case Section.skils:
+        return "Skils";
       case Section.aboutProductions:
         return 'About Productions';
       case Section.contact:
@@ -25,10 +28,12 @@ extension ContentsExtension on Section {
         return 0;
       case Section.aboutMe:
         return 1;
-      case Section.aboutProductions:
+      case Section.skils:
         return 2;
-      case Section.contact:
+      case Section.aboutProductions:
         return 3;
+      case Section.contact:
+        return 4;
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 import 'package:r0sa_profile/view/section/about_productions.dart';
 import 'package:r0sa_profile/view/section/contact.dart';
+import 'package:r0sa_profile/view/section/skils.dart';
 import 'package:r0sa_profile/view/section/top_v2.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -179,6 +180,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
+    const Skils(),
     const TopV2(),
     const AboutMeV2(),
     const AboutProductions(),
@@ -247,13 +249,24 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
-              top: isOpenAbout ? 120 : 60,
+              top: isOpenAbout ? 150 : 90,
               child: SizedBox(
                 width: 250,
                 height: 30,
                 child: MenuButton(
                     title: Section.contact.title,
                     onTap: () => _scroll(Section.contact.num)),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              top: isOpenAbout ? 120 : 60,
+              child: SizedBox(
+                width: 250,
+                height: 30,
+                child: MenuButton(
+                    title: Section.skils.title,
+                    onTap: () => _scroll(Section.skils.num)),
               ),
             ),
             Positioned(
