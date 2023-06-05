@@ -33,7 +33,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _scroll(int index) {
+  void scrollTo(int index) {
     setState(() {
       currentSection = index;
     });
@@ -54,6 +54,8 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
+    final bool isSmall = ResponsiveWidget.isSmallScreen(context);
+    final bool isLarge = ResponsiveWidget.isLargeScreen(context);
 
     return SafeArea(
       child: Scaffold(
@@ -67,7 +69,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               return Padding(
                 padding: const EdgeInsets.only(left: 22, top: 24),
                 child: MenuButton(
-                  onTap: () => _scroll(index),
+                  onTap: () => scrollTo(index),
                   title: Section.values[index].title,
                 ),
               );
@@ -82,7 +84,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
               itemScrollController: _itemScrollController,
               itemPositionsListener: _itemPositionsListener,
             ),
-            ResponsiveWidget.isSmallScreen(context)
+            isSmall
                 ? Positioned(
                     top: 30,
                     right: 30,
@@ -93,22 +95,46 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                       icon: const Icon(Icons.menu),
                     ),
                   )
-                : Positioned(
-                    top: screen.height * 3 / 5,
-                    left: 10,
-                    child: menu(),
-                  ),
-            // Container(
-            //   width: screen.width * 0.15,
-            //   height: screen.height,
-            //   color: IColor.blue,
-            //   child: Positioned(
-            //     top: screen.height * 3 / 5,
-            //     left: 10,
-            //     child: menu(),
-            //   ),
-            // ),
-            ResponsiveWidget.isSmallScreen(context)
+                : isLarge
+                    ? Container(
+                        width: 246,
+                        height: screen.height,
+                        color: IColor.blue,
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: 12, top: screen.height * 3 / 5),
+                          child: ListView.builder(
+                              itemCount: sections.length,
+                              itemBuilder: ((context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 17),
+                                  child: MenuButton(
+                                      onTap: () => scrollTo(index),
+                                      title: Section.values[index].title),
+                                );
+                              })),
+                        ),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.only(left: 32),
+                        width: screen.width,
+                        height: 60,
+                        color: IColor.blue,
+                        child: ListView.builder(
+                          itemCount: sections.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 32),
+                              child: MenuButton(
+                                onTap: () => scrollTo(index),
+                                title: Section.values[index].title,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+            isSmall
                 ? Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
@@ -136,7 +162,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   IconButton nextSectionButton() {
     return IconButton(
         onPressed: (() {
-          _scroll(currentSection + 1);
+          scrollTo(currentSection + 1);
         }),
         icon: const Icon(Icons.keyboard_arrow_down));
   }
@@ -144,42 +170,9 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   IconButton previousSectionButton() {
     return IconButton(
         onPressed: (() {
-          _scroll(currentSection - 1);
+          scrollTo(currentSection - 1);
         }),
         icon: const Icon(Icons.keyboard_arrow_up));
-  }
-
-  Widget topMenu(Size screen) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: SizedBox(
-        height: 30,
-        width: screen.width - 12,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: sections.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: IColor.grey,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: MenuButton(
-                    onTap: () => _scroll(index),
-                    title: Section.values[index].title,
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
   }
 
   List<Widget> sections = [
@@ -189,107 +182,4 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     const Skils(),
     const ContactV2(),
   ];
-
-  Widget menu() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12),
-      child: SizedBox(
-        height: 30 * (sections.length + 1),
-        child: Stack(
-          children: [
-            SizedBox(
-              width: 250,
-              height: 30,
-              child: MenuButton(
-                  title: Section.top.title,
-                  onTap: () => _scroll(Section.top.num)),
-            ),
-            AnimatedPositioned(
-              top: isOpenAbout ? 60 : 30,
-              duration: const Duration(milliseconds: 200),
-              child: AnimatedOpacity(
-                opacity: isOpenAbout ? 1 : 0,
-                duration: const Duration(milliseconds: 200),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: SizedBox(
-                    width: 250,
-                    height: 30,
-                    child: MenuButton(
-                        title: Section.aboutMe.title,
-                        onTap: () {
-                          setState(() {
-                            isOpenAbout = !isOpenAbout;
-                          });
-                          _scroll(Section.aboutMe.num);
-                        }),
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              top: isOpenAbout ? 90 : 30,
-              duration: const Duration(milliseconds: 200),
-              child: AnimatedOpacity(
-                opacity: isOpenAbout ? 1 : 0,
-                duration: const Duration(milliseconds: 200),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30),
-                  child: SizedBox(
-                    width: 250,
-                    height: 30,
-                    child: MenuButton(
-                        title: Section.aboutProductions.title,
-                        onTap: () {
-                          setState(() {
-                            isOpenAbout = !isOpenAbout;
-                          });
-                          _scroll(Section.aboutProductions.num);
-                        }),
-                  ),
-                ),
-              ),
-            ),
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              top: isOpenAbout ? 150 : 90,
-              child: SizedBox(
-                width: 250,
-                height: 30,
-                child: MenuButton(
-                    title: Section.contact.title,
-                    onTap: () => _scroll(Section.contact.num)),
-              ),
-            ),
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              top: isOpenAbout ? 120 : 60,
-              child: SizedBox(
-                width: 250,
-                height: 30,
-                child: MenuButton(
-                    title: Section.skils.title,
-                    onTap: () => _scroll(Section.skils.num)),
-              ),
-            ),
-            Positioned(
-              top: 30,
-              child: SizedBox(
-                width: 250,
-                height: 30,
-                child: MenuButton(
-                  title: "About ...",
-                  onTap: () {
-                    setState(() {
-                      isOpenAbout = !isOpenAbout;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
