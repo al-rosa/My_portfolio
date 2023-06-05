@@ -189,10 +189,10 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
-    const Skils(),
+    const ContactV2(),
     const TopV2(),
     const AboutMeV2(),
     const AboutProductions(),
-    const ContactV2(),
+    const Skils(),
   ];
 }

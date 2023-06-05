@@ -17,6 +17,13 @@ class ContactV2 extends StatelessWidget {
     final bool isLarge =
         ResponsiveWidget.isLargeScreen(context) && screen.height > 700;
 
+    final EdgeInsetsGeometry contentPadding = isSmall
+        ? EdgeInsets.only(left: 14, right: 14, top: screen.height * 0.05)
+        : EdgeInsets.only(
+            left: (screen.width * 0.08).clamp(14, 450),
+            right: (screen.width * 0.03).clamp(0, 450),
+            top: isLarge ? screen.height * 0.08 : screen.height * 0.12);
+
     const String email = "alan21delarosa21@gmail.com";
     const String name = "Aran Sekimoto";
 
@@ -29,12 +36,7 @@ class ContactV2 extends StatelessWidget {
       width: screen.width,
       height: screen.height,
       child: Padding(
-        padding: isSmall
-            ? EdgeInsets.only(left: 14, right: 14, top: screen.height * 0.05)
-            : EdgeInsets.only(
-                left: (screen.width * 0.2).clamp(200, 450),
-                right: (screen.width * 0.05).clamp(0, 450),
-                top: screen.height * 0.2),
+        padding: contentPadding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
