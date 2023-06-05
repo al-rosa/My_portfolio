@@ -24,16 +24,11 @@ class AboutMeV2 extends StatelessWidget {
             ? 140.0
             : 190.0;
 
-    final frameWSize = isLarge
-        ? (screen.width * 0.6).clamp(910.0, 1200.0)
-        : isSmall
-            ? screen.width * 0.9
-            : (screen.width * 0.6).clamp(560.0, 700.0);
+    final frameWSize =
+        isSmall ? screen.width * 0.9 : (screen.width * 0.6).clamp(700.0, 950.0);
     final frameHSize = isLarge
-        ? (screen.height * 0.6).clamp(510.0, 600.0)
-        : isSmall
-            ? (screen.height * 0.75).clamp(120.0, 560.0)
-            : (screen.height * 0.58).clamp(650.0, 700.0);
+        ? (screen.height * 0.6).clamp(580.0, 600.0)
+        : (screen.height * 0.75).clamp(120.0, 560.0);
     final frameP = isSmall
         ? const EdgeInsets.all(12)
         : const EdgeInsets.symmetric(horizontal: 66, vertical: 46);
@@ -43,14 +38,14 @@ class AboutMeV2 extends StatelessWidget {
     final EdgeInsetsGeometry contentPadding = isSmall
         ? EdgeInsets.only(left: 8, right: 8, top: screen.height * 0.05)
         : EdgeInsets.only(
-            left: (screen.width * 0.2).clamp(200, 450),
-            top: screen.height * 0.08);
+            left: (screen.width * 0.08).clamp(14, 450),
+            top: isLarge ? screen.height * 0.08 : screen.height * 0.12);
 
     debugPrint("width:${screen.width}");
     debugPrint("heith:${screen.height}");
     return Container(
       width: screen.width,
-      height: (screen.height).clamp(900.0, 1200.0),
+      height: screen.height,
       color: IColor.background,
       child: Padding(
         padding: contentPadding,
@@ -60,7 +55,7 @@ class AboutMeV2 extends StatelessWidget {
             VerticalStick(
               child: Text(
                 Section.aboutMe.title,
-                style: ITextStyle.boldText,
+                style: isSmall ? ITextStyle.minBoldText : ITextStyle.boldText,
               ),
             ),
             const SizedBox(height: 24),
