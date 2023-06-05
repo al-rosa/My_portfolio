@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 import 'package:r0sa_profile/view/section/v2/AboutProuction/about_productions.dart';
-import 'package:r0sa_profile/view/section/v2/Contact/contact_V2.dart';
+import 'package:r0sa_profile/view/section/v2/Contact/contact_v2.dart';
 import 'package:r0sa_profile/view/section/v2/Skils/skils.dart';
 import 'package:r0sa_profile/view/section/v2/Top/top_v2.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';

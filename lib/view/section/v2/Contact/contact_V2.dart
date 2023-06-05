@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants.dart';
 import '../../../../model/emum/section.dart';
 import '../../../../responsive_widget.dart';
+import 'widget/contact_from.dart';
 import 'widget/vertical_stick.dart';
 
 class ContactV2 extends StatelessWidget {
@@ -18,6 +19,10 @@ class ContactV2 extends StatelessWidget {
 
     const String email = "alan21delarosa21@gmail.com";
     const String name = "Aran Sekimoto";
+
+    var urlTW = Uri.parse("twitter://user?screen_name=r0sa21_");
+    var secondUrlTW = Uri.parse("https://twitter.com/r0sa21_");
+    var urlGM = Uri.parse("mailto:$email");
 
     return Container(
       color: IColor.blue,
@@ -84,7 +89,20 @@ class ContactV2 extends StatelessWidget {
                       const SizedBox(height: 8),
                       ContactFrom(
                         email: email,
-                        onTapEmal: () {},
+                        onTapEmail: () async {
+                          if (await canLaunchUrl(urlGM)) {
+                            launchUrl(urlGM);
+                          } else {
+                            launchUrl(secondUrlTW);
+                          }
+                        },
+                        onTapTwitter: () async {
+                          if (await canLaunchUrl(urlTW)) {
+                            launchUrl(urlTW);
+                          } else {
+                            launchUrl(secondUrlTW);
+                          }
+                        },
                         isSmall: isSmall,
                         isLarge: isLarge,
                         screen: screen,
@@ -94,7 +112,20 @@ class ContactV2 extends StatelessWidget {
                 if (isLarge)
                   ContactFrom(
                     email: email,
-                    onTapEmal: () {},
+                    onTapEmail: () async {
+                      if (await canLaunchUrl(urlGM)) {
+                        launchUrl(urlGM);
+                      } else {
+                        launchUrl(secondUrlTW);
+                      }
+                    },
+                    onTapTwitter: () async {
+                      if (await canLaunchUrl(urlTW)) {
+                        launchUrl(urlTW);
+                      } else {
+                        launchUrl(secondUrlTW);
+                      }
+                    },
                     isLarge: isLarge,
                     isSmall: isSmall,
                     screen: screen,
@@ -115,64 +146,6 @@ class ContactV2 extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-class ContactFrom extends StatelessWidget {
-  const ContactFrom({
-    Key? key,
-    required this.email,
-    required this.onTapEmal,
-    required this.isSmall,
-    required this.isLarge,
-    required this.screen,
-  }) : super(key: key);
-
-  final String email;
-  final Function() onTapEmal;
-  final bool isSmall;
-  final bool isLarge;
-  final Size screen;
-
-  @override
-  Widget build(BuildContext context) {
-    final double fontSize = (screen.width / 50).clamp(21, 40);
-    return RichText(
-      textAlign: isSmall ? TextAlign.end : TextAlign.start,
-      text: TextSpan(
-        style: Theme.of(context).textTheme.bodyText2,
-        children: [
-          TextSpan(
-              text: email,
-              style: ITextStyle.regularText.copyWith(
-                color: IColor.background,
-                fontSize: fontSize,
-                decoration: TextDecoration.underline,
-              ),
-              recognizer: TapGestureRecognizer()..onTap = onTapEmal),
-          const TextSpan(text: "\n"),
-          const TextSpan(text: "\n"),
-          TextSpan(
-            text: "or ",
-            style: ITextStyle.regularText.copyWith(
-              color: IColor.background,
-              fontSize: fontSize,
-            ),
-          ),
-          TextSpan(
-            text: "Twitter",
-            style: ITextStyle.regularText.copyWith(
-              color: IColor.background,
-              fontSize: fontSize,
-              decoration: TextDecoration.underline,
-            ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                debugPrint("or Twitter");
-              },
-          ),
-        ],
       ),
     );
   }
