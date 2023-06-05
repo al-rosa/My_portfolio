@@ -35,9 +35,16 @@ class AboutMeV2 extends StatelessWidget {
             ? (screen.height * 0.75).clamp(120.0, 560.0)
             : (screen.height * 0.58).clamp(650.0, 700.0);
     final frameP = isSmall
-        ? const EdgeInsets.all(14)
+        ? const EdgeInsets.all(12)
         : const EdgeInsets.symmetric(horizontal: 66, vertical: 46);
     final frameW = isSmall ? 21.0 : 32.0;
+    final shadowSize = isSmall ? 5.0 : 10.0;
+
+    final EdgeInsetsGeometry contentPadding = isSmall
+        ? EdgeInsets.only(left: 8, right: 8, top: screen.height * 0.05)
+        : EdgeInsets.only(
+            left: (screen.width * 0.2).clamp(200, 450),
+            top: screen.height * 0.08);
 
     debugPrint("width:${screen.width}");
     debugPrint("heith:${screen.height}");
@@ -46,11 +53,7 @@ class AboutMeV2 extends StatelessWidget {
       height: (screen.height).clamp(900.0, 1200.0),
       color: IColor.background,
       child: Padding(
-        padding: isSmall
-            ? EdgeInsets.only(left: 14, right: 12, top: screen.height * 0.05)
-            : EdgeInsets.only(
-                left: (screen.width * 0.2).clamp(200, 450),
-                top: screen.height * 0.08),
+        padding: contentPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,6 +68,7 @@ class AboutMeV2 extends StatelessWidget {
               width: frameWSize,
               height: frameHSize,
               frameWidth: frameW,
+              shadowSize: shadowSize,
               childPadding: frameP,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

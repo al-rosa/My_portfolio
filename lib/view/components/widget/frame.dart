@@ -8,6 +8,7 @@ class Frame extends StatelessWidget {
     required this.height,
     required this.frameWidth,
     required this.child,
+    required this.shadowSize,
     this.childPadding = const EdgeInsets.all(8.0),
     Key? key,
   }) : super(key: key);
@@ -16,6 +17,7 @@ class Frame extends StatelessWidget {
   final double height;
   final double frameWidth;
   final Widget child;
+  final double shadowSize;
   final EdgeInsetsGeometry childPadding;
 
   @override
@@ -23,14 +25,14 @@ class Frame extends StatelessWidget {
     return Container(
       width: width + frameWidth,
       height: height + frameWidth,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: IColor.brown,
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
-            spreadRadius: 10,
-            blurRadius: 10,
-            offset: Offset(5, 5),
+            spreadRadius: shadowSize,
+            blurRadius: shadowSize,
+            offset: const Offset(5, 5),
           ),
         ],
       ),
@@ -43,11 +45,11 @@ class Frame extends StatelessWidget {
               BoxShadow(
                 color: IColor.white.withAlpha(180),
               ),
-              const BoxShadow(
+               BoxShadow(
                 color: Color(0xFFFEFEFE),
-                spreadRadius: -10.0,
-                blurRadius: 10.0,
-                offset: Offset(0, 0),
+                spreadRadius: -shadowSize,
+                blurRadius: shadowSize,
+                offset: const Offset(0, 0),
               ),
             ],
           ),
