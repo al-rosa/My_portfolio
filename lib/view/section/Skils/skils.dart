@@ -15,24 +15,30 @@ class Skils extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
-    final bool isSmall = ResponsiveWidget.isSmallScreen(context);
+    final bool isSmall =
+        ResponsiveWidget.isSmallScreen(context) || screen.width < 850;
     final bool isLarge = ResponsiveWidget.isLargeScreen(context);
 
     final double skilLvW = isLarge ? screen.width / 3 : screen.width / 1.3;
-    final double circleR = isLarge ? 130 : 80;
+    final double circleR = isLarge ? 130 : 52;
+
+    final EdgeInsetsGeometry contentPadding = isSmall
+        ? EdgeInsets.only(left: 12, right: 12, top: screen.height * 0.07)
+        : EdgeInsets.only(
+            left: (screen.width * 0.08).clamp(14, 450),
+            top: isLarge ? screen.height * 0.08 : screen.height * 0.12);
+
     return Container(
       width: screen.width,
       height: isSmall ? screen.height * 1.3 : screen.height,
       color: IColor.background,
       child: Padding(
-        padding: isLarge
-            ? EdgeInsets.only(
-                left: (screen.width * 0.2).clamp(200, 450),
-                top: screen.height * 0.08)
-            : EdgeInsets.only(left: 12, right: 12, top: screen.height * 0.07),
+        padding: contentPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: !isLarge && !isSmall
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.spaceAround,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +58,7 @@ class Skils extends StatelessWidget {
                 ),
               ],
             ),
+            if (!isLarge && !isSmall) const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +122,10 @@ class Skils extends StatelessWidget {
                 if (!isSmall) const SizedBox(width: 18),
                 if (!isSmall)
                   GraphicCategory(
-                      title: "design", isSmall: isSmall, isEngineer: false),
+                    title: "design",
+                    isSmall: isSmall,
+                    isEngineer: false,
+                  ),
               ],
             ),
           ],
@@ -228,7 +238,7 @@ class SCirclePainter extends CustomPainter {
 
     canvas.translate(size.width / 2, size.height / 2);
     Offset offSet = const Offset(0, 0);
-    const double radias = 80;
+    const double radias = 52;
 
     final rect = Rect.fromCenter(
       center: offSet,

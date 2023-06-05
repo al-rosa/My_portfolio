@@ -65,10 +65,10 @@ class SkilsLevel extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: isSmall ? 6 : 14),
+            SizedBox(height: !isSmall ? 14 : 6),
             Text(
               skil.text,
-              style: isSmall ? ITextStyle.detailText : ITextStyle.regularText,
+              style:  ITextStyle.detailText,
             ),
           ],
         ),
