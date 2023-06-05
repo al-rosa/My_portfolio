@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class Contact extends StatelessWidget {
   const Contact({

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/constants.dart';
-import 'package:r0sa_profile/model/emum/section.dart';
-import 'package:r0sa_profile/responsive_widget.dart';
-import 'package:r0sa_profile/view/components/is_web_image.dart';
+import 'package:r0sa_profile/view/section/v2/Contact/widget/vertical_stick.dart';
 
-import '../components/widget/about_me_text.dart';
-import '../components/widget/frame.dart';
+import '../../../../constants.dart';
+import '../../../../model/emum/section.dart';
+import '../../../../responsive_widget.dart';
+import '../../../components/is_web_image.dart';
+import '../../../components/widget/frame.dart';
+import 'widget/about_me_text.dart';
 
 class AboutMeV2 extends StatelessWidget {
   const AboutMeV2({Key? key}) : super(key: key);
@@ -53,9 +54,11 @@ class AboutMeV2 extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              Section.aboutMe.title,
-              style: ITextStyle.boldText,
+            VerticalStick(
+              child: Text(
+                Section.aboutMe.title,
+                style: ITextStyle.boldText,
+              ),
             ),
             const SizedBox(height: 24),
             Frame(

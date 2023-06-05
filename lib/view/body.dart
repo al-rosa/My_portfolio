@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
-import 'package:r0sa_profile/view/section/about_productions.dart';
-import 'package:r0sa_profile/view/section/contact.dart';
-import 'package:r0sa_profile/view/section/skils.dart';
-import 'package:r0sa_profile/view/section/top_v2.dart';
+import 'package:r0sa_profile/view/section/v2/AboutProuction/about_productions.dart';
+import 'package:r0sa_profile/view/section/v2/Contact/contact_V2.dart';
+import 'package:r0sa_profile/view/section/v2/Skils/skils.dart';
+import 'package:r0sa_profile/view/section/v2/Top/top_v2.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import 'components/widget/menu_button.dart';
-import 'section/about_me_v2.dart';
+import 'section/v2/AboutMe/about_me_v2.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -97,15 +97,15 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                   child: menu(),
                 ),
           // Container(
-          //     width: screen.width * 0.15,
-          //     height: screen.height,
-          //     color: IColor.blue,
-          //     child: Positioned(
-          //       top: screen.height * 3 / 5,
-          //       left: 10,
-          //       child: menu(),
-          //     ),
+          //   width: screen.width * 0.15,
+          //   height: screen.height,
+          //   color: IColor.blue,
+          //   child: Positioned(
+          //     top: screen.height * 3 / 5,
+          //     left: 10,
+          //     child: menu(),
           //   ),
+          // ),
           ResponsiveWidget.isSmallScreen(context)
               ? Align(
                   alignment: Alignment.bottomCenter,
@@ -180,11 +180,11 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
-    const Skils(),
     const TopV2(),
     const AboutMeV2(),
     const AboutProductions(),
-    const Contact(),
+    const Skils(),
+    const ContactV2(),
   ];
 
   Widget menu() {

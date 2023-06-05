@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:r0sa_profile/view/section/v2/Contact/widget/vertical_stick.dart';
 
-import '../../constants.dart';
-import '../../model/emum/section.dart';
-import '../../model/entity/production.dart';
-import '../../responsive_widget.dart';
-import '../components/is_web_image.dart';
-import '../components/widget/production_card.dart';
-import '../components/widget/production_dialog.dart';
+import '../../../../constants.dart';
+import '../../../../model/emum/section.dart';
+import '../../../../model/entity/production.dart';
+import '../../../../responsive_widget.dart';
+import '../../../components/is_web_image.dart';
+import 'widget/production_card.dart';
+import 'widget/production_dialog.dart';
 
 class AboutProductions extends StatelessWidget {
   const AboutProductions({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class AboutProductions extends StatelessWidget {
 
     final double dialogWSize = cardWSize * 2;
     final double dialogHSize = (cardWSize * 2).clamp(210, 600);
+
+    final String backgroudImage = path("mathematics.png");
 
     myDialog(Production production, width, height, imageSize) {
       showDialog(
@@ -49,9 +52,9 @@ class AboutProductions extends StatelessWidget {
               ? screen.height + cardHSize * 3.5
               : screen.height + cardWSize * 4,
       decoration: BoxDecoration(
-        color: IColor.grey,
+        color: IColor.background,
         image: DecorationImage(
-          image: AssetImage(path('rectangle.png')),
+          image: AssetImage(backgroudImage),
           fit: BoxFit.cover,
         ),
       ),
@@ -65,13 +68,11 @@ class AboutProductions extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(),
-                  Row(
-                    children: [
-                      Text(
-                        Section.aboutProductions.title,
-                        style: ITextStyle.boldText,
-                      ),
-                    ],
+                  VerticalStick(
+                    child: Text(
+                      Section.aboutProductions.title,
+                      style: ITextStyle.boldText,
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

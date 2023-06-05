@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import '../../../model/entity/skil.dart';
+import '../../../../../constants.dart';
+import '../../../../../model/entity/skil.dart';
 
 class SkilsLevel extends StatelessWidget {
   const SkilsLevel({

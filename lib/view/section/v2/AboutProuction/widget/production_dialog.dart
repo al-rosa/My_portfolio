@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/components/is_web_image.dart';
 
-import '../../../constants.dart';
-import '../../../model/entity/production.dart';
-import '../../../responsive_widget.dart';
-import 'border_card.dart';
+import '../../../../../constants.dart';
+import '../../../../../model/entity/production.dart';
+import '../../../../../responsive_widget.dart';
+import '../../../../components/is_web_image.dart';
+import '../../../../components/widget/border_card.dart';
+
+
 
 class ProductionDialog extends StatelessWidget {
   const ProductionDialog({

@@ -1,14 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/constants.dart';
-import 'package:r0sa_profile/model/emum/section.dart';
-import 'package:r0sa_profile/model/entity/skil.dart';
-import 'package:r0sa_profile/view/section/contact.dart';
+import 'package:r0sa_profile/view/section/v2/Contact/widget/vertical_stick.dart';
 
-import '../../responsive_widget.dart';
-import '../components/widget/skil_level.dart';
+import '../../../../constants.dart';
+import '../../../../model/emum/section.dart';
+import '../../../../model/entity/skil.dart';
+import '../../../../responsive_widget.dart';
+import 'widget/skil_level.dart';
 
 class Skils extends StatelessWidget {
   const Skils({Key? key}) : super(key: key);
@@ -38,9 +37,12 @@ class Skils extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  Section.skils.title,
-                  style: isSmall ? ITextStyle.minBoldText : ITextStyle.boldText,
+                VerticalStick(
+                  child: Text(
+                    Section.skils.title,
+                    style:
+                        isSmall ? ITextStyle.minBoldText : ITextStyle.boldText,
+                  ),
                 ),
                 Text(
                   "主なスキルです。",

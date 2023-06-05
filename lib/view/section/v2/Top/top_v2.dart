@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/constants.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 
-import '../components/is_web_image.dart';
+import '../../../components/is_web_image.dart';
+import '../Contact/widget/vertical_stick.dart';
 
 class TopV2 extends StatelessWidget {
   const TopV2({Key? key}) : super(key: key);
@@ -48,9 +49,12 @@ class TopV2 extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        "r0sa",
-                        style: isSmall ? ITextStyle.boldText : ITextStyle.title,
+                      VerticalStick(
+                        child: Text(
+                          "r0sa",
+                          style:
+                              isSmall ? ITextStyle.boldText : ITextStyle.title,
+                        ),
                       ),
                       const SizedBox(width: 12),
                       CircleAvatar(
