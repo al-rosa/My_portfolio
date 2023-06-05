@@ -55,77 +55,80 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
 
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: Drawer(
-        backgroundColor: IColor.blue,
-        child: ListView.builder(
-          itemCount: sections.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 22, top: 24),
-              child: MenuButton(
-                onTap: () => _scroll(index),
-                title: Section.values[index].title,
-              ),
-            );
-          },
-        ),
-      ),
-      body: Stack(
-        children: [
-          ScrollablePositionedList.builder(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: IColor.background,
+        key: _scaffoldKey,
+        drawer: Drawer(
+          backgroundColor: IColor.blue,
+          child: ListView.builder(
             itemCount: sections.length,
-            itemBuilder: (context, index) => sections[index],
-            itemScrollController: _itemScrollController,
-            itemPositionsListener: _itemPositionsListener,
-          ),
-          ResponsiveWidget.isSmallScreen(context)
-              ? Positioned(
-                  top: 30,
-                  right: 30,
-                  child: IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    icon: const Icon(Icons.menu),
-                  ),
-                )
-              : Positioned(
-                  top: screen.height * 3 / 5,
-                  left: 10,
-                  child: menu(),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 22, top: 24),
+                child: MenuButton(
+                  onTap: () => _scroll(index),
+                  title: Section.values[index].title,
                 ),
-          // Container(
-          //   width: screen.width * 0.15,
-          //   height: screen.height,
-          //   color: IColor.blue,
-          //   child: Positioned(
-          //     top: screen.height * 3 / 5,
-          //     left: 10,
-          //     child: menu(),
-          //   ),
-          // ),
-          ResponsiveWidget.isSmallScreen(context)
-              ? Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 24),
-                    child: currentSection == 0
-                        ? nextSectionButton()
-                        : currentSection == sections.length - 1
-                            ? previousSectionButton()
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  previousSectionButton(),
-                                  nextSectionButton()
-                                ],
-                              ),
+              );
+            },
+          ),
+        ),
+        body: Stack(
+          children: [
+            ScrollablePositionedList.builder(
+              itemCount: sections.length,
+              itemBuilder: (context, index) => sections[index],
+              itemScrollController: _itemScrollController,
+              itemPositionsListener: _itemPositionsListener,
+            ),
+            ResponsiveWidget.isSmallScreen(context)
+                ? Positioned(
+                    top: 30,
+                    right: 30,
+                    child: IconButton(
+                      onPressed: () {
+                        _scaffoldKey.currentState!.openDrawer();
+                      },
+                      icon: const Icon(Icons.menu),
+                    ),
+                  )
+                : Positioned(
+                    top: screen.height * 3 / 5,
+                    left: 10,
+                    child: menu(),
                   ),
-                )
-              : Container(),
-        ],
+            // Container(
+            //   width: screen.width * 0.15,
+            //   height: screen.height,
+            //   color: IColor.blue,
+            //   child: Positioned(
+            //     top: screen.height * 3 / 5,
+            //     left: 10,
+            //     child: menu(),
+            //   ),
+            // ),
+            ResponsiveWidget.isSmallScreen(context)
+                ? Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: currentSection == 0
+                          ? nextSectionButton()
+                          : currentSection == sections.length - 1
+                              ? previousSectionButton()
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    previousSectionButton(),
+                                    nextSectionButton()
+                                  ],
+                                ),
+                    ),
+                  )
+                : Container(),
+          ],
+        ),
       ),
     );
   }
