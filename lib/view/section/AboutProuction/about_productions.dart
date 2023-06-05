@@ -15,19 +15,28 @@ class AboutProductions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
-    final double cardWSize = ResponsiveWidget.isLargeScreen(context)
-        ? (screen.width * 0.36).clamp(440, 600)
-        : (screen.width * 0.5).clamp(440, 600);
+    final bool isLarge = ResponsiveWidget.isLargeScreen(context);
+    final bool isSmall = ResponsiveWidget.isSmallScreen(context);
 
-    final double cardHSize = ResponsiveWidget.isLargeScreen(context)
+    final EdgeInsetsGeometry contentPadding = isSmall
+        ? const EdgeInsets.symmetric(horizontal: 12)
+        : EdgeInsets.only(
+            left: (screen.width * 0.08).clamp(14, 450),
+            top: isLarge ? screen.height * 0.08 : screen.height * 0.12);
+
+    final double cardWSize = isLarge
+        ? (screen.width * 0.33).clamp(400, 600)
+        : (screen.width * 0.5).clamp(440, 580);
+
+    final double cardHSize = isLarge
         ? (screen.height * 0.32).clamp(250, 400)
         : (screen.height * 0.22).clamp(250, 400);
 
     final double imageSize =
-        ResponsiveWidget.isLargeScreen(context) ? 240 : 190;
+        isLarge ? (screen.width * 0.1).clamp(170, 190) : 190;
 
     final double dialogWSize = cardWSize * 2;
-    final double dialogHSize = (cardWSize * 2).clamp(210, 600);
+    final double dialogHSize = (cardWSize * 2).clamp(210, 500);
 
     final String backgroudImage = path("mathematics.png");
 
@@ -46,7 +55,7 @@ class AboutProductions extends StatelessWidget {
 
     return Container(
       width: screen.width > 320 ? screen.width : 400,
-      height: ResponsiveWidget.isLargeScreen(context) && screen.height > 600
+      height: isLarge && screen.height > 600
           ? screen.height
           : screen.width > 470
               ? screen.height + cardHSize * 3.5
@@ -59,10 +68,8 @@ class AboutProductions extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: ResponsiveWidget.isSmallScreen(context)
-            ? const EdgeInsets.symmetric(horizontal: 12)
-            : EdgeInsets.only(left: screen.width * 0.2),
-        child: ResponsiveWidget.isLargeScreen(context) && screen.height > 600
+        padding: contentPadding,
+        child: isLarge && screen.height > 600
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -141,9 +148,13 @@ class AboutProductions extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(),
-                  Text(
-                    Section.aboutProductions.title,
-                    style: ITextStyle.boldText.copyWith(fontSize: 21),
+                  VerticalStick(
+                    child: Text(
+                      Section.aboutProductions.title,
+                      style: isSmall
+                          ? ITextStyle.minBoldText
+                          : ITextStyle.boldText,
+                    ),
                   ),
                   ProductionCard(
                     cardWSize: cardWSize,
@@ -152,12 +163,8 @@ class AboutProductions extends StatelessWidget {
                     imageSize: imageSize,
                     onTap: () => myDialog(
                       productions[0],
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.width * 0.8
-                          : dialogWSize,
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.height * 0.8
-                          : dialogHSize,
+                      isSmall ? screen.width * 0.8 : dialogWSize,
+                      isSmall ? screen.height * 0.8 : dialogHSize,
                       imageSize * 1.3,
                     ),
                   ),
@@ -168,12 +175,8 @@ class AboutProductions extends StatelessWidget {
                     imageSize: imageSize,
                     onTap: () => myDialog(
                       productions[1],
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.width * 0.8
-                          : dialogWSize,
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.height * 0.8
-                          : dialogHSize,
+                      isSmall ? screen.width * 0.8 : dialogWSize,
+                      isSmall ? screen.height * 0.8 : dialogHSize,
                       imageSize * 1.3,
                     ),
                   ),
@@ -184,12 +187,8 @@ class AboutProductions extends StatelessWidget {
                     imageSize: imageSize,
                     onTap: () => myDialog(
                       productions[2],
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.width * 0.8
-                          : dialogWSize,
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.height * 0.8
-                          : dialogHSize,
+                      isSmall ? screen.width * 0.8 : dialogWSize,
+                      isSmall ? screen.height * 0.8 : dialogHSize,
                       imageSize * 1.3,
                     ),
                   ),
@@ -200,12 +199,8 @@ class AboutProductions extends StatelessWidget {
                     imageSize: imageSize,
                     onTap: () => myDialog(
                       productions[3],
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.width * 0.8
-                          : dialogWSize,
-                      ResponsiveWidget.isSmallScreen(context)
-                          ? screen.height * 0.8
-                          : dialogHSize,
+                      isSmall ? screen.width * 0.8 : dialogWSize,
+                      isSmall ? screen.height * 0.8 : dialogHSize,
                       imageSize * 1.3,
                     ),
                   ),

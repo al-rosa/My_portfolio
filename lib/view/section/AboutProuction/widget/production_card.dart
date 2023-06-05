@@ -14,7 +14,7 @@ class ProductionCard extends StatelessWidget {
     required this.onTap,
     required this.production,
     required this.imageSize,
-    this.childPadding = 30,
+    this.childPadding = 27,
   }) : super(key: key);
 
   final double cardWSize;
@@ -26,6 +26,7 @@ class ProductionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double architecturePaddhing = 12;
     return InkWell(
       onTap: () {
         onTap();
@@ -53,7 +54,8 @@ class ProductionCard extends StatelessWidget {
                           height: imageSize,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 21),
+                          padding:
+                              const EdgeInsets.only(left: architecturePaddhing),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -65,16 +67,15 @@ class ProductionCard extends StatelessWidget {
                                 height: imageSize - 18 - childPadding * 2,
                                 width: cardWSize -
                                     imageSize -
-                                    2 -
                                     8 * 2 -
-                                    21 -
+                                    architecturePaddhing -
                                     childPadding * 2,
                                 child: ListView.builder(
                                   itemCount: production.architecture.length,
                                   itemBuilder: ((context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 12, top: 12),
+                                          left: 6, top: 12),
                                       child: Text(
                                         production.architecture[index],
                                         style: ITextStyle.detailText,
