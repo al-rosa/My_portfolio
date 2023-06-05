@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:r0sa_profile/constants.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 
-import '../../../components/is_web_image.dart';
-import '../Contact/widget/vertical_stick.dart';
+import '../../components/is_web_image.dart';
+import '../../components/widget/vertical_stick.dart';
 
 class TopV2 extends StatelessWidget {
   const TopV2({Key? key}) : super(key: key);

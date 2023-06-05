@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
-import 'package:r0sa_profile/view/section/v2/AboutProuction/about_productions.dart';
+import 'package:r0sa_profile/view/section/AboutProuction/about_productions.dart';
 import 'package:r0sa_profile/view/section/v2/Contact/contact_v2.dart';
-import 'package:r0sa_profile/view/section/v2/Skils/skils.dart';
-import 'package:r0sa_profile/view/section/v2/Top/top_v2.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
-import 'components/widget/menu_button.dart';
-import 'section/v2/AboutMe/about_me_v2.dart';
+import '../view/components/widget/menu_button.dart';
+import '../view/section/AboutMe/about_me_v2.dart';
+import '../view/section/Skils/skils.dart';
+import '../view/section/Top/top_v2.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

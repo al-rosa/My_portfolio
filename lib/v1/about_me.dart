@@ -4,7 +4,7 @@ import 'package:r0sa_profile/model/emum/section.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 import 'package:r0sa_profile/view/components/is_web_image.dart';
 
-import '../../../constants.dart';
+import '../constants.dart';
 
 class AboutMe extends StatelessWidget {
   const AboutMe({

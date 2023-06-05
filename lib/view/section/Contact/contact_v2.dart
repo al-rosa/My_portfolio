@@ -4,8 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../constants.dart';
 import '../../../../model/emum/section.dart';
 import '../../../../responsive_widget.dart';
+import '../../components/widget/vertical_stick.dart';
 import 'widget/contact_from.dart';
-import 'widget/vertical_stick.dart';
 
 class ContactV2 extends StatelessWidget {
   const ContactV2({Key? key}) : super(key: key);

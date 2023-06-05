@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:r0sa_profile/view/section/v2/Contact/widget/vertical_stick.dart';
 
-import '../../../../constants.dart';
-import '../../../../model/emum/section.dart';
-import '../../../../model/entity/skil.dart';
-import '../../../../responsive_widget.dart';
+import '../../../constants.dart';
+import '../../../model/emum/section.dart';
+import '../../../model/entity/skil.dart';
+import '../../../responsive_widget.dart';
+import '../../components/widget/vertical_stick.dart';
 import 'widget/skil_level.dart';
 
 class Skils extends StatelessWidget {

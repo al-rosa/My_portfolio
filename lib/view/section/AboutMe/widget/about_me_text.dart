@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../constants.dart';
+import '../../../../constants.dart';
 
 class AboutMeText extends StatelessWidget {
   const AboutMeText({

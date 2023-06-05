@@ -46,7 +46,7 @@ class Frame extends StatelessWidget {
                 color: IColor.white.withAlpha(180),
               ),
                BoxShadow(
-                color: Color(0xFFFEFEFE),
+                color: const Color(0xFFFEFEFE),
                 spreadRadius: -shadowSize,
                 blurRadius: shadowSize,
                 offset: const Offset(0, 0),
