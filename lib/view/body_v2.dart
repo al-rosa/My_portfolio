@@ -92,7 +92,7 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
                       color: IColor.blue,
                       child: Container(
                         padding: EdgeInsets.only(
-                            left: 12, top: screen.height * 3 / 5),
+                            left: 17, top: screen.height * 3 / 5),
                         child: ListView.builder(
                             itemCount: sections.length,
                             itemBuilder: ((context, index) {
@@ -189,10 +189,10 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
-    const ContactV2(),
     const TopV2(),
     const AboutMeV2(),
     const AboutProductions(),
     const Skils(),
+    const ContactV2(),
   ];
 }
