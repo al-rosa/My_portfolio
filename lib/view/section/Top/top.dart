@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:r0sa_profile/constants.dart';
 import 'package:r0sa_profile/responsive_widget.dart';
 
 import '../../components/is_web_image.dart';
 import '../../components/widget/vertical_stick.dart';
 
-class Top extends StatelessWidget {
-  const Top({Key? key}) : super(key: key);
+final tapCircleProvider = StateProvider((ref) => 1.0);
+
+class Top extends ConsumerWidget {
+  const Top({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final double circleSize = ref.watch(tapCircleProvider);
+
     final Size screen = ResponsiveWidget.getScreenSize(context);
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
 
@@ -58,9 +65,14 @@ class Top extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                CircleAvatar(
-                  radius: isSmall ? 18 : 30,
-                  backgroundColor: IColor.textColor,
+                InkWell(
+                  onTap: () => ref.read(tapCircleProvider.notifier).update(
+                        (state) => state == 3 ? state = 1 : state + 1,
+                      ),
+                  child: CircleAvatar(
+                    radius: isSmall ? 18 : 30 * circleSize,
+                    backgroundColor: IColor.textColor,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 CircleAvatar(

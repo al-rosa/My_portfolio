@@ -1,26 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../constants.dart';
-import '../model/emum/section.dart';
-import '../responsive_widget.dart';
-import 'components/widget/menu_button.dart';
-import 'section/AboutMe/about_me.dart';
-import 'section/AboutProuction/about_productions.dart';
-import 'section/Contact/contact.dart';
-import 'section/Skils/skils.dart';
-import 'section/Top/top.dart';
+import '../../constants.dart';
+import '../../model/emum/section.dart';
+import '../../responsive_widget.dart';
+import '../components/widget/menu_button.dart';
+import '../section/AboutMe/about_me.dart';
+import '../section/AboutProuction/about_productions.dart';
+import '../section/Contact/contact.dart';
+import '../section/Skils/skils.dart';
+import '../section/Top/top.dart';
+import 'widget/next_section_button.dart';
+import 'widget/previous_section_button.dart';
 
-class BodyV2 extends StatefulWidget {
-  const BodyV2({Key? key}) : super(key: key);
+final currentSectionProvider = StateProvider((ref) => 0);
+final nextSectionProvider = Provider((ref) {
+  final nextSection = ref.watch(currentSectionProvider);
+  return nextSection + 1;
+});
+final previousSectionProvider = Provider((ref) {
+  final previousSection = ref.watch(currentSectionProvider);
+  return previousSection - 1;
+});
+
+class Body extends ConsumerStatefulWidget {
+  const Body({Key? key}) : super(key: key);
 
   @override
-  State<BodyV2> createState() => _BodyV2State();
+  // ignore: library_private_types_in_public_api
+  _BodyState createState() => _BodyState();
 }
 
-class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
-  final ItemScrollController _itemScrollController = ItemScrollController();
-  final ItemPositionsListener _itemPositionsListener =
+class _BodyState extends ConsumerState<Body> with TickerProviderStateMixin {
+  late final ItemScrollController _itemScrollController =
+      ItemScrollController();
+  late final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
 
   @override
@@ -28,11 +43,7 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
     super.initState();
   }
 
-
   void scrollTo(int index) {
-    setState(() {
-      currentSection = index;
-    });
     _itemScrollController.scrollTo(
       index: index,
       duration: const Duration(seconds: 1),
@@ -40,15 +51,14 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
     );
   }
 
-  bool isOpenAbout = false;
-  bool isOpenMenu = false;
-
-  int currentSection = 0;
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final int sectionIndex = ref.watch(currentSectionProvider);
+    final int nextSection = ref.watch(nextSectionProvider);
+    final int previousSection = ref.watch(previousSectionProvider);
+
     final Size screen = ResponsiveWidget.getScreenSize(context);
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
     final bool isLarge = ResponsiveWidget.isLargeScreen(context);
@@ -67,7 +77,12 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
               return Padding(
                 padding: const EdgeInsets.only(left: 22, top: 24),
                 child: MenuButton(
-                  onTap: () => scrollTo(index),
+                  onTap: () {
+                    ref.read(currentSectionProvider.notifier).update(
+                          (state) => state = index,
+                        );
+                    scrollTo(index);
+                  },
                   title: Section.values[index].title,
                 ),
               );
@@ -95,7 +110,14 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 17),
                                 child: MenuButton(
-                                    onTap: () => scrollTo(index),
+                                    onTap: () {
+                                      ref
+                                          .read(currentSectionProvider.notifier)
+                                          .update(
+                                            (state) => state = index,
+                                          );
+                                      scrollTo(index);
+                                    },
                                     title: Section.values[index].title),
                               );
                             })),
@@ -148,15 +170,53 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
                     alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 24),
-                      child: currentSection == 0
-                          ? nextSectionButton()
-                          : currentSection == sections.length - 1
-                              ? previousSectionButton()
+                      child: sectionIndex == 0
+                          ? nextSectionButton(
+                              onPressed: () {
+                                ref
+                                    .read(currentSectionProvider.notifier)
+                                    .update(
+                                      (state) => state + 1,
+                                    );
+                                scrollTo(nextSection);
+                              },
+                            )
+                          : sectionIndex == sections.length - 1
+                              ? previousSectionButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(currentSectionProvider.notifier)
+                                        .update(
+                                          (state) => state - 1,
+                                        );
+                                    scrollTo(previousSection);
+                                  },
+                                )
                               : Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    previousSectionButton(),
-                                    nextSectionButton()
+                                    previousSectionButton(
+                                      onPressed: () {
+                                        ref
+                                            .read(
+                                                currentSectionProvider.notifier)
+                                            .update(
+                                              (state) => state - 1,
+                                            );
+                                        scrollTo(previousSection);
+                                      },
+                                    ),
+                                    nextSectionButton(
+                                      onPressed: () {
+                                        ref
+                                            .read(
+                                                currentSectionProvider.notifier)
+                                            .update(
+                                              (state) => state + 1,
+                                            );
+                                        scrollTo(nextSection);
+                                      },
+                                    )
                                   ],
                                 ),
                     ),
@@ -168,21 +228,8 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
     );
   }
 
-  IconButton nextSectionButton() {
-    return IconButton(
-        onPressed: (() {
-          scrollTo(currentSection + 1);
-        }),
-        icon: const Icon(Icons.keyboard_arrow_down));
-  }
 
-  IconButton previousSectionButton() {
-    return IconButton(
-        onPressed: (() {
-          scrollTo(currentSection - 1);
-        }),
-        icon: const Icon(Icons.keyboard_arrow_up));
-  }
+
 
   List<Widget> sections = [
     const Top(),

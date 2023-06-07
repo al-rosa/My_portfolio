@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:r0sa_profile/constants.dart';
 
-import 'view/body.dart';
+import 'view/body/body.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         textTheme:
             GoogleFonts.courierPrimeTextTheme(Theme.of(context).textTheme),
       ),
-      home: const BodyV2(),
+      home: const Body(),
     );
   }
 }
