@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:r0sa_profile/constants.dart';
 
-import 'view/body_v2.dart';
+import 'view/body.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

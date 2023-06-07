@@ -8,8 +8,8 @@ import '../../components/widget/frame.dart';
 import '../../components/widget/vertical_stick.dart';
 import 'widget/about_me_text.dart';
 
-class AboutMeV2 extends StatelessWidget {
-  const AboutMeV2({Key? key}) : super(key: key);
+class AboutMe extends StatelessWidget {
+  const AboutMe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

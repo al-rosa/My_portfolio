@@ -27,7 +27,7 @@ class ContactFrom extends StatelessWidget {
     return RichText(
       textAlign: isSmall ? TextAlign.end : TextAlign.start,
       text: TextSpan(
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyMedium,
         children: [
           TextSpan(
               text: email,

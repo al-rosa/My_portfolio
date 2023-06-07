@@ -5,11 +5,11 @@ import '../constants.dart';
 import '../model/emum/section.dart';
 import '../responsive_widget.dart';
 import 'components/widget/menu_button.dart';
-import 'section/AboutMe/about_me_v2.dart';
+import 'section/AboutMe/about_me.dart';
 import 'section/AboutProuction/about_productions.dart';
-import 'section/Contact/contact_v2.dart';
+import 'section/Contact/contact.dart';
 import 'section/Skils/skils.dart';
-import 'section/Top/top_v2.dart';
+import 'section/Top/top.dart';
 
 class BodyV2 extends StatefulWidget {
   const BodyV2({Key? key}) : super(key: key);
@@ -28,10 +28,6 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   void scrollTo(int index) {
     setState(() {
@@ -189,10 +185,10 @@ class _BodyV2State extends State<BodyV2> with TickerProviderStateMixin {
   }
 
   List<Widget> sections = [
-    const TopV2(),
-    const AboutMeV2(),
+    const Top(),
+    const AboutMe(),
     const AboutProductions(),
     const Skils(),
-    const ContactV2(),
+    const Contact(),
   ];
 }

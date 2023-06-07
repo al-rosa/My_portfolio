@@ -40,7 +40,8 @@ class AboutProductions extends StatelessWidget {
 
     final String backgroudImage = path("mathematics.png");
 
-    myDialog(Production production, width, height, imageSize) {
+    myDialog(
+        Production production, double width, double height, double imageSize) {
       showDialog(
           context: context,
           builder: (context) {

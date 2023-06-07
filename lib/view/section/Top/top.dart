@@ -5,8 +5,8 @@ import 'package:r0sa_profile/responsive_widget.dart';
 import '../../components/is_web_image.dart';
 import '../../components/widget/vertical_stick.dart';
 
-class TopV2 extends StatelessWidget {
-  const TopV2({Key? key}) : super(key: key);
+class Top extends StatelessWidget {
+  const Top({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +82,9 @@ class TopV2 extends StatelessWidget {
             const SizedBox(height: 12),
             const Text("関西のFlutterエンジニア。", style: ITextStyle.subTitle),
             const SizedBox(height: 22),
-            Row(
+            const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.blue,
@@ -99,9 +99,9 @@ class TopV2 extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Row(
+            const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.green,
@@ -114,9 +114,9 @@ class TopV2 extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Row(
+            const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.brown,

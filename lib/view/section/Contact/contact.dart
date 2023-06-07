@@ -7,8 +7,8 @@ import '../../../../responsive_widget.dart';
 import '../../components/widget/vertical_stick.dart';
 import 'widget/contact_from.dart';
 
-class ContactV2 extends StatelessWidget {
-  const ContactV2({Key? key}) : super(key: key);
+class Contact extends StatelessWidget {
+  const Contact({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
