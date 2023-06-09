@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:r0sa_profile/constants.dart';
-import 'package:r0sa_profile/responsive_widget.dart';
 
+import '../../../responsive_widget.dart';
 import '../../components/is_web_image.dart';
 import '../../components/widget/vertical_stick.dart';
 
-final tapCircleProvider = StateProvider((ref) => 1.0);
-
-class Top extends ConsumerWidget {
-  const Top({
-    super.key,
-  });
+class Top extends HookWidget {
+  const Top({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final double circleSize = ref.watch(tapCircleProvider);
-
+  Widget build(BuildContext context) {
     final Size screen = ResponsiveWidget.getScreenSize(context);
     final bool isSmall = ResponsiveWidget.isSmallScreen(context);
 
     final EdgeInsetsGeometry contentPadding = screen.width < 600
         ? const EdgeInsets.all(14)
         : EdgeInsets.only(left: screen.width * 0.25);
+
+    final circleSize = useState(1.0);
 
     return Container(
       width: screen.width,
@@ -66,11 +62,11 @@ class Top extends ConsumerWidget {
                 ),
                 const SizedBox(width: 12),
                 InkWell(
-                  onTap: () => ref.read(tapCircleProvider.notifier).update(
-                        (state) => state == 3 ? state = 1 : state + 1,
-                      ),
+                  onTap: () => circleSize.value < 3
+                      ? circleSize.value++
+                      : circleSize.value = 1,
                   child: CircleAvatar(
-                    radius: isSmall ? 18 : 30 * circleSize,
+                    radius: isSmall ? 18 : 30 * circleSize.value,
                     backgroundColor: IColor.textColor,
                   ),
                 ),
@@ -94,9 +90,9 @@ class Top extends ConsumerWidget {
             const SizedBox(height: 12),
             const Text("関西のFlutterエンジニア。", style: ITextStyle.subTitle),
             const SizedBox(height: 22),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.blue,
@@ -111,9 +107,9 @@ class Top extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 12),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.green,
@@ -126,9 +122,9 @@ class Top extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 12),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: IColor.brown,
